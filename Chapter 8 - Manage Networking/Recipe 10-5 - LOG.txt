@@ -1,0 +1,88 @@
+﻿# Recipe 10-5
+# Manage DNS - LOG
+
+####        STEP 0. Add a user to the AD
+
+PS C:\> Get-ADUser -LDAPFilter '(Name=DNSADMIN)'
+
+DistinguishedName : CN=DNSADMIN,CN=Users,DC=Reskit,DC=Org
+Enabled           : True
+GivenName         : 
+Name              : DNSADMIN
+ObjectClass       : user
+ObjectGUID        : df3d40b9-c301-4c50-aa42-3598f2f0b9fe
+SamAccountName    : DNSADMINM
+SID               : S-1-5-21-715049209-2702507345-667613206-1126
+Surname           : 
+UserPrincipalName : DNSADMIN@reskit.org
+
+
+####     STEP 1. Create a new primary forward DNS Zone
+
+NO OUTPUT PRODUCED
+
+####     STEP 2. Create a new primary reverse lookup domain (for IPv4).
+
+
+PS C:\> Get-DNSServerZone -name 'foo.bar', '10.10.10.in-addr.arpa'
+
+ZoneName                            ZoneType        IsAutoCreated   IsDsIntegrated  IsReverseLookupZone  IsSigned    
+--------                            --------        -------------   --------------  -------------------  --------    
+foo.bar                             Primary         False           True            False                False       
+10.10.10.in-addr.arpa               Primary         False           True            True                 False
+
+
+
+####       STEP 3 - Add an A resource records to foo.bar and get results
+    NO OUTPUT from 1st cmdlet, then...
+
+PS C:\> Add-DnsServerResourceRecord -ZoneName 'foo.bar' `
+                            -A `
+                            -Name home `
+                            -AllowUpdateAny `
+                            -IPv4Address '10.42.42.42' `
+                            -TimeToLive 30.0:0:0
+
+
+PS C:\> Get-DnsServerResourceRecord -ZoneName foo.bar -name 'home'
+
+HostName                  RecordType Type       Timestamp            TimeToLive      RecordData                
+--------                  ---------- ----       ---------            ----------      ----------                
+home                      A          1          0                    30.00:00:00     10.42.42.42 
+
+####       STEP 4 -  Add an MX resource records to foo.bar and get results
+
+PS C:\> Get-DnsServerResourceRecord -zonename 'reskit.org' -name '@' -RRType Mx
+
+HostName                  RecordType Type       Timestamp            TimeToLive      RecordData                      
+--------                  ---------- ----       ---------            ----------      ----------                      
+@                         MX         15         0                    00:00:00        [10][mail.reskit.org.]     
+
+
+####  STEP 5. SET EDNS
+ PS C:\> Set-DNSServerEDns -CacheTimeout   '0:30:00' `
+                  -Computername    DC1 `
+                  -EnableProbes    $true `
+                  -EnableReception $true
+
+Get-DnsServerEDns
+
+CacheTimeout EnableProbes EnableReception
+------------ ------------ ---------------
+00:30:00     True         True           
+
+
+ 
+
+####   STEP 6 Setup EDNS on the server 
+
+NO OUTPUT
+
+####    STEP 7 -  Test the DNS Service on DC1
+
+
+PS C:\> Test-DnsServer -IPAddress 10.10.10.10 -Context DnsServer
+
+IPAddress   Result  RoundTripTime TcpTried UdpTried
+---------   ------  ------------- -------- --------
+10.10.10.10 Success 00:00:11      True     True

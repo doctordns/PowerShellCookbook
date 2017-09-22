@@ -1,0 +1,69 @@
+﻿# Recipe 13-3 Secure Hyper-V host
+
+
+# STEP 1, 2, 3
+
+NO OUTPUT
+
+
+
+#  STEP 4
+
+
+PS C:\> Get-VMGroup |
+            Format-Table -Property Name, GroupType, VMMembers 
+
+Name             GroupType VMMembers               
+----             --------- ---------               
+HVServers VMCollectionType {HV2, HV1}
+
+
+
+#    STEP 5
+
+PS C:\> $Members = (Get-VmGroup -Name HVServers).VMMembers
+PS C:\> $Members
+
+Name State   CPUUsage(%) MemoryAssigned(M) Uptime              Status             Version
+---- -----   ----------- ----------------- ------              ------             -------
+HV2  Running 0           16000             21.04:47:26.3860000 Operating normally 8.0    
+HV1  Running 0           16000             21.02:39:38.7180000 Operating normally 8.0    
+
+
+
+#    STEP 6
+
+
+PS C:\> Set-VMhost -ComputerName HV1 -MacAddressMinimum 00155D017000 `
+                                     -MacAddressMaximum 00155D017099       
+PS C:\> Set-VMhost -ComputerName HV2 -MacAddressMinimum 00155D017100 `
+                                     -MacAddressMaximum 00155D017199       
+PS C:\> Get-VMhost -ComputerName HV1, HV2 |
+            Format-Table -Property Name, MacAddressMinimum, 
+                                         MacAddressMaximum
+
+Name MacAddressMinimum MacAddressMaximum
+---- ----------------- -----------------
+HV1  00155D017000      00155D017099     
+HV2  00155D017100      00155D017199    
+
+
+
+#    STEP 7, 8, 9
+
+NO OUTPUT
+
+
+#    STEP 10
+
+
+PS C:\> Get-VMProcessor -VM (Get-VMGroup HvServers).VMMembers | 
+            Format-Table -Property VMName, OperationalStatus
+
+VMName OperationalStatus                  
+------ -----------------                  
+HV2    {Ok, HostResourceProtectionEnabled}
+HV1    {Ok, HostResourceProtectionEnabled}
+
+
+

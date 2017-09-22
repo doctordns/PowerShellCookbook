@@ -1,0 +1,30 @@
+﻿# 10-6 - Install/authorise DHCP server on DC1 - LOG!
+
+
+# Step 1
+
+
+PS C:\> Install-WindowsFeature -Name DHCP `
+                   -IncludeManagementTools
+
+
+Success Restart Needed Exit Code      Feature Result                               
+------- -------------- ---------      --------------                               
+True    No             Success        {DHCP Server, DHCP Server Tools}             
+
+
+#  STEP 2
+
+PS C:\> Add-DHCPServerSecurityGroup -Verbose
+
+VERBOSE: Adds DHCP users and DHCP administrators security groups on the DHCP server DC1
+
+# Step 3 - no output
+
+# step 4
+
+PS C:> Restart-Service -Name DHCPServer –Force 
+WARNING: Waiting for service 'DHCP Server (DHCPServer)' to start...
+WARNING: Waiting for service 'DHCP Server (DHCPServer)' to start...
+
+

@@ -1,0 +1,36 @@
+﻿#   Local group - LOG
+
+
+
+
+PS C:\> Get-LocalUser
+Name           Enabled Description                                             
+----           ------- -----------                                             
+Administrator  False   Built-in account for administering the computer/domain  
+DefaultAccount False   A user account managed by the system.                   
+Guest          False   Built-in account for guest access to the computer/domain
+
+PS C:\> $Date = (Get-Date).addmonths(6)
+PS C:\> $Pass = ConvertTo-SecureString -String 'Marin1!' -AsPlainText -Force
+PS C:\> New-LocalUser -Name JerryG -AccountExpires $Date -Password $Pass  -Description Consultant
+Name   Enabled Description
+----   ------- -----------
+JerryG True    Consultant
+
+PS C:\> Get-LocalUser -Name Jerryg | Format-Table name, *Source,*exp*
+Name   PrincipalSource AccountExpires      PasswordExpires    
+----   --------------- --------------      ---------------    
+JerryG           Local 08/09/2017 13:47:48 19/04/2017 14:47:48
+
+PS C:\> New-LocalGroup -Name TheBand -Description 'Members of the band'
+Name    Description        
+----    -----------        
+TheBand Members of the band
+
+PS C:\> Add-LocalGroupMember -Group TheBand -Member JerryG
+PS C:\> Get-LocalGroupMember -Group TheBand
+ObjectClass Name             PrincipalSource
+----------- ----             ---------------
+User        COOKHAM24\JerryG Local
+
+

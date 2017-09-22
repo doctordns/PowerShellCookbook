@@ -1,0 +1,284 @@
+﻿# 10-1 output log
+
+#   STEP 1   IP Address configuration
+
+
+PS C:\foo> ipconfig.exe
+Windows IP Configuration
+Ethernet adapter Ethernet:
+   Connection-specific DNS Suffix  . : 
+   Link-local IPv6 Address . . . . . : fe80::7c02:98f1:76b5:d1f%3
+   Autoconfiguration IPv4 Address. . : 169.254.13.31
+   Subnet Mask . . . . . . . . . . . : 255.255.0.0
+   Default Gateway . . . . . . . . . : 10.10.10.254
+Tunnel adapter isatap.{C056D004-9A93-4155-8654-1EDC8DE8509E}:
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . : 
+
+
+PS C:\foo> ipconfig.exe /all
+Windows IP Configuration
+   Host Name . . . . . . . . . . . . : DC1-test
+   Primary Dns Suffix  . . . . . . . : 
+   Node Type . . . . . . . . . . . . : Hybrid
+   IP Routing Enabled. . . . . . . . : No
+   WINS Proxy Enabled. . . . . . . . : No
+Ethernet adapter Ethernet:
+   Connection-specific DNS Suffix  . : 
+   Description . . . . . . . . . . . : Microsoft Hyper-V Network Adapter
+   Physical Address. . . . . . . . . : 00-15-5D-01-71-39
+   DHCP Enabled. . . . . . . . . . . : No
+   Autoconfiguration Enabled . . . . : Yes
+   Link-local IPv6 Address . . . . . : fe80::7c02:98f1:76b5:d1f%3(Preferred) 
+   IPv4 Address. . . . . . . . . . . : 10.10.10.10(Duplicate) 
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Autoconfiguration IPv4 Address. . : 169.254.13.31(Preferred) 
+   Subnet Mask . . . . . . . . . . . : 255.255.0.0
+   Default Gateway . . . . . . . . . : 10.10.10.254
+   DHCPv6 IAID . . . . . . . . . . . : 50337117
+   DHCPv6 Client DUID. . . . . . . . : 00-01-00-01-20-10-56-CC-00-15-5D-01-71-39
+   DNS Servers . . . . . . . . . . . : 10.10.10.10
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+
+
+PS C:\> Get-NetIPConfiguration
+InterfaceAlias       : Ethernet
+InterfaceIndex       : 4
+InterfaceDescription : Microsoft Hyper-V Network Adapter
+NetProfile.Name      : Reskit.Org
+IPv4Address          : 10.10.10.10
+IPv6DefaultGateway   : 
+IPv4DefaultGateway   : 10.10.10.254
+DNSServer            : ::1
+                       127.0.0.1
+
+PS C:\> Test-NetConnection DC1.Reskit.Org -port 389 -InformationLevel Detailed
+ComputerName            : DC1.Reskit.Org
+RemoteAddress           : 10.10.10.10
+RemotePort              : 389
+NameResolutionResults   : 10.10.10.10
+MatchingIPsecRules      : 
+NetworkIsolationContext : Private Network
+InterfaceAlias          : Ethernet
+SourceAddress           : 10.10.10.50
+NetRoute (NextHop)      : 0.0.0.0
+TcpTestSucceeded        : True
+
+
+#   STEP 2  Ping vs Test-NetConnection
+
+PS C:\foo> Ping SRV1 -4
+Pinging SRV1 [10.10.10.50] with 32 bytes of data:
+Pinging DC1.Reskit.Org [10.10.10.10] with 32 bytes of data:
+Reply from 10.10.10.10: bytes=32 time<1ms TTL=128
+Reply from 10.10.10.10: bytes=32 time<1ms TTL=128
+Reply from 10.10.10.10: bytes=32 time<1ms TTL=128
+Reply from 10.10.10.10: bytes=32 time<1ms TTL=128
+
+Ping statistics for 10.10.10.10:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 0ms, Average = 0ms
+
+PS C:\> Test-NetConnection DC1 -CommonTCPPort SMB
+ComputerName     : DC1
+RemoteAddress    : 10.10.10.10
+RemotePort       : 445
+InterfaceAlias   : Ethernet
+SourceAddress    : 10.10.10.50
+TcpTestSucceeded : True
+
+
+PS C:\> Test-NetConnection DC1.Reskit.Org -port 389 -InformationLevel Detailed
+ComputerName            : DC1.Reskit.Org
+RemoteAddress           : 10.10.10.10
+RemotePort              : 389
+NameResolutionResults   : 10.10.10.10
+MatchingIPsecRules      : 
+NetworkIsolationContext : Private Network
+InterfaceAlias          : Ethernet
+SourceAddress           : 10.10.10.50
+NetRoute (NextHop)      : 0.0.0.0
+TcpTestSucceeded        : True
+
+
+
+#  Note extra info
+
+PS C:\foo> Test-NetConnection SRV2 -InformationLevel Detailed
+
+
+ComputerName           : SRV2
+RemoteAddress          : fe80::7c95:2dcf:c8bc:4321%3
+NameResolutionResults  : fe80::7c95:2dcf:c8bc:4321%3
+                         10.10.10.51
+InterfaceAlias         : Ethernet
+SourceAddress          : fe80::7c02:98f1:76b5:d1f%3
+NetRoute (NextHop)     : ::
+PingSucceeded          : True
+PingReplyDetails (RTT) : 0 ms
+
+# AND: 
+
+PS C:\foo> Test-NetConnection SRV2 -CommonTCPPort SMB
+ComputerName     : SRV2
+RemoteAddress    : fe80::7c95:2dcf:c8bc:4321%3
+RemotePort       : 445
+InterfaceAlias   : Ethernet
+SourceAddress    : fe80::7c02:98f1:76b5:d1f%3
+TcpTestSucceeded : True
+
+
+#  STEP  3. SMB Folder sharing/using
+
+PS C:\> net use X:  \\Srv1\c$
+The command completed successfully.
+
+PS C:\> New-SMBMapping -LocalPath 'Y:' -RemotePath \\Srv1\c$ 
+
+Status Local Path Remote Path
+------ ---------- -----------
+OK     Y:         \\Srv1\c$  
+
+PS C:\> net use
+New connections will be remembered.
+
+
+Status       Local     Remote                    Network
+
+-------------------------------------------------------------------------------
+OK           X:        \\Srv1\c$                 Microsoft Windows Network
+OK           Y:        \\Srv1\c$                 Microsoft Windows Network
+The command completed successfully.
+
+
+PS C:\> Get-SMBMapping
+
+Status Local Path Remote Path
+------ ---------- -----------
+OK     X:         \\Srv1\c$  
+OK     Y:         \\Srv1\c$
+
+PS C:\> net share
+
+Share name   Resource                        Remark
+
+-------------------------------------------------------------------------------
+C$           C:\                             Default share                     
+IPC$                                         Remote IPC                        
+ADMIN$       C:\Windows                      Remote Admin                      
+NETLOGON     C:\Windows\SYSVOL\sysvol\Reskit.Org\SCRIPTS
+                                             Logon server share                
+ReskitApp    C:\ReskitApp                    
+SYSVOL       C:\Windows\SYSVOL\sysvol        Logon server share                
+The command completed successfully.
+
+
+PS C:\> Get-SmbShare
+
+Name      ScopeName Path                                        Description        
+----      --------- ----                                        -----------        
+ADMIN$    *         C:\Windows                                  Remote Admin       
+C$        *         C:\                                         Default share      
+IPC$      *                                                     Remote IPC         
+NETLOGON  *         C:\Windows\SYSVOL\sysvol\Reskit.Org\SCRIPTS Logon server share 
+ReskitApp *         C:\ReskitApp                                                   
+SYSVOL    *         C:\Windows\SYSVOL\sysvol                    Logon server share 
+
+
+#    STEP 4
+
+PS C:\> net share foo=c:\foo
+foo was shared successfully.
+
+PS C:\> New-SmbShare -Path C:\foo -Name Foo2
+
+Name ScopeName Path   Description
+---- --------- ----   -----------
+Foo2 *         C:\foo            
+
+PS C:\> net share
+
+Share name   Resource                        Remark
+-------------------------------------------------------------------------------
+C$           C:\                             Default share                     
+IPC$                                         Remote IPC                        
+ADMIN$       C:\Windows                      Remote Admin                      
+foo          c:\foo                          
+Foo2         C:\foo                          
+NETLOGON     C:\Windows\SYSVOL\sysvol\Reskit.Org\SCRIPTS
+                                             Logon server share                
+ReskitApp    C:\ReskitApp                    
+SYSVOL       C:\Windows\SYSVOL\sysvol        Logon server share                
+The command completed successfully.
+
+PS C:\> Get-SmbShare
+
+Name      ScopeName Path                                        Description        
+----      --------- ----                                        -----------        
+ADMIN$    *         C:\Windows                                  Remote Admin       
+C$        *         C:\                                         Default share      
+foo       *         c:\foo                                                         
+Foo2      *         C:\foo                                                         
+IPC$      *                                                     Remote IPC         
+NETLOGON  *         C:\Windows\SYSVOL\sysvol\Reskit.Org\SCRIPTS Logon server share 
+ReskitApp *         C:\ReskitApp                                                   
+SYSVOL    *         C:\Windows\SYSVOL\sysvol                    Logon server share 
+
+
+#      STEP 5  DNS
+
+PS C:\> ipconfig /displaydns
+
+Windows IP Configuration
+
+    www.gstatic.com
+    ----------------------------------------
+    Record Name . . . . . : www.gstatic.com
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 13
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 216.58.208.131
+
+    ogs.google.com
+    ----------------------------------------
+    Record Name . . . . . : ogs.google.com
+    Record Type . . . . . : 5
+    Time To Live  . . . . : 28
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    CNAME Record  . . . . : www3.l.google.com
+
+
+    Record Name . . . . . : www3.l.google.com
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 28
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 216.58.208.142
+
+    ibm.com
+    ----------------------------------------
+    Record Name . . . . . : ibm.com
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 15473
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 129.42.38.1
+
+
+
+PS C:\> get-dnsclientcache
+
+Entry                     RecordName                Record Status    Section TimeTo Data   Data
+                                                    Type                     Live   Length
+-----                     ----------                ------ ------    ------- ------ ------ ----
+ibm.com                   ibm.com                   A      Success   Answer   15372      4 129.42.38.1
+play.google.com           play.google.com           CNAME  Success   Answer     225      8 play.l.google.com
+play.google.com           play.l.google.com         A      Success   Answer     225      4 216.58.208.142
+win10.ipv6.microsoft.com  win10.ipv6.microsoft.com  CNAME  Success   Answer     247      8 windows.ipv6.micrs...
+win10.ipv6.microsoft.com  windows.ipv6.microsoft... CNAME  Success   Answer     247      8 newwinuswc.ipv6.mi...
+win10.ipv6.microsoft.com  newwinuswc.ipv6.micros... A      Success   Answer     247      4 52.161.13.39
+wpad.reskit.org           wpad.reskit.org           A      Success   Answer      44      4 107.170.2.22
+

@@ -1,0 +1,17 @@
+Module 8 - Networking
+
+8-1  - New ways to do old things
+8-2  - Configuring IP addressing
+8-3  - Converting IP address from static to DHCP
+8-4  - Installing domain controllers and DNS
+8-5  - Configuring zones and resource records in DNS
+8-6  - Installing and authorizing a DHCP server
+8-7  - Configuring DHCP scopes
+8-8  - Configuring DHCP server failover and load balancing
+8-9  - Building a public key infrastructure
+8-10 - Creating and managing AD users, groups, and computers
+8-11 - Adding users to AD using a CSV file
+8-12 - Reporting on AD users
+8-13 - Finding expired computers in AD
+8-14 - Creating a privileged user report
+

@@ -1,0 +1,82 @@
+﻿#  Recipe 10-3
+#  LOG FILE
+
+
+#     STEP 1
+
+PS C:\> Get-NetIPAddress -InterfaceIndex $Ifindex -AddressFamily $IPType
+
+IPAddress         : 169.254.254.155
+InterfaceIndex    : 3
+InterfaceAlias    : Ethernet
+AddressFamily     : IPv4
+Type              : Unicast
+PrefixLength      : 16
+PrefixOrigin      : WellKnown
+SuffixOrigin      : Link
+AddressState      : Preferred
+ValidLifetime     : Infinite ([TimeSpan]::MaxValue)
+PreferredLifetime : Infinite ([TimeSpan]::MaxValue)
+SkipAsSource      : False
+PolicyStore       : ActiveStore
+
+
+#     STEP 2 - Set the IP address
+PS C:\> New-NetIPAddress -InterfaceAlias $IfAlias `
+               -PrefixLength   24 `
+               -IPAddress      '10.10.10.11' `
+               -AddressFamily  $IPType 
+
+
+IPAddress         : 10.10.10.11
+InterfaceIndex    : 3
+InterfaceAlias    : Ethernet
+AddressFamily     : IPv4
+Type              : Unicast
+PrefixLength      : 24
+PrefixOrigin      : Manual
+SuffixOrigin      : Manual
+AddressState      : Tentative
+ValidLifetime     : Infinite ([TimeSpan]::MaxValue)
+PreferredLifetime : Infinite ([TimeSpan]::MaxValue)
+SkipAsSource      : False
+PolicyStore       : ActiveStore
+
+#   STEP 3
+NO OUTPUT
+
+# And step 4 to test it
+
+PS C:\> Get-NetIPAddress -InterfaceIndex $IfIndex
+
+IPAddress         : 10.10.10.11
+InterfaceIndex    : 3
+InterfaceAlias    : Ethernet
+AddressFamily     : IPv4
+Type              : Unicast
+PrefixLength      : 24
+PrefixOrigin      : Manual
+SuffixOrigin      : Manual
+AddressState      : Preferred
+ValidLifetime     : Infinite ([TimeSpan]::MaxValue)
+PreferredLifetime : Infinite ([TimeSpan]::MaxValue)
+SkipAsSource      : False
+PolicyStore       : ActiveStore
+
+
+PS C:\> Test-NetConnection  -ComputerName  DC1 
+
+ComputerName           : DC1
+RemoteAddress          : 10.10.10.10
+InterfaceAlias         : Ethernet
+SourceAddress          : 10.10.10.11
+PingSucceeded          : True
+PingReplyDetails (RTT) : 0 ms
+
+
+PS C:\> Resolve-DnsName -Name dc2.reskit.org -Server DC1 | 
+             Where Type -eq 'A'
+
+Name                Type   TTL   Section    IPAddress     
+----                ----   ---   -------    ---------     
+DC2.Reskit.Org      A      1200  Question   10.10.10.11 
