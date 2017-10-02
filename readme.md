@@ -8,15 +8,15 @@ The book has 13 chapters and each chapter has a number of recipes. Each recipe i
 
 **Index**
 
-- Chapter 1 - What's New in PowerShell and Windows Server 2013. 
-- Chapter 2 - Implementing Nano Server
-- Chapter 3 - Managing Windows Update
-- Chapter 4 - Managing Printers
-- Chapter 5 - Managing Windows Server Backup
-- Chapter 6 - Managing Performance
-- Chapter 7 - Troubleshooting Windows
-- Chapter 8 - Managing Windows Networking
-- Chapter 9 - Managing Network Shares
+- Chapter 1  - What's New in PowerShell and Windows Server 2013 
+- Chapter 2  - Implementing Nano Server
+- Chapter 3  - Managing Windows Update
+- Chapter 4  - Managing Printers
+- Chapter 5  - Managing Windows Server Backup
+- Chapter 6  - Managing Performance
+- Chapter 7  - Troubleshooting Windows
+- Chapter 8  - Managing Windows Networking
+- Chapter 9  - Managing Network Shares
 - Chapter 10 - Managing Internet Information Server
 - Chapter 11 - Managing Hyper-V
 - Chapter 12 - Managing Azure
