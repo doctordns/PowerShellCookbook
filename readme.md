@@ -1,4 +1,4 @@
-## Managing Windows Server 2016 With PowerShell Cookbook##
+## Managing Windows Server 2016 With PowerShell Cookbook
 
 **Introduction**
 
@@ -10,12 +10,24 @@ The book has 13 chapters and each chapter has a number of recipes. Each recipe i
 
 - Chapter 1 - What's New in PowerShell and Windows Server 2013. 
 - Chapter 2 - Implementing Nano Server
+- Chapter 3 - Managing Windows Update
+- Chapter 4 - Managing Printers
+- Chapter 5 - Managing Windows Server Backup
+- Chapter 6 - Managing Performance
+- Chapter 7 - Troubleshooting Windows
+- Chapter 8 - Managing Windows Networking
+- Chapter 9 - Managing Network Shares
+- Chapter 10 - Managing Internet Information Server
+- Chapter 12 - Managing Hyper-V
+- Chapter 13 - Using Desired State Configuration
 
 
 
 **Note**
-The recipes are 'as is' - if they work, great, if not, oh well. Worth what you paid for it!
 
-This repo and the documentation inside is a work in progress. It's not yet complete. 
+The recipes are 'as is' - if they work, great, if not, oh well. Worth what you paid for it! This repo and the documentation inside is a work in progress. It's not yet complete. 
 
-Any commments: email Thomas Lee at DoctorDNS@Gmail.Com.
+
+**Feedback**
+
+Any comments: email Thomas Lee at DoctorDNS@Gmail.Com.

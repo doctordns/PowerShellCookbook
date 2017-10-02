@@ -5,4 +5,4 @@ Git push -u origin master
 
 
 # TO pull stuff down
-Git pull
+Git fetch
