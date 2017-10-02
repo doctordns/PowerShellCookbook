@@ -1,6 +1,6 @@
 $Message = Read-host 'Commit message?'
 Git add *
-Git commit -m "xxx"
+Git commit -m $message
 Git push -u origin master
 
 
