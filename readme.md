@@ -18,14 +18,17 @@ The book has 13 chapters and each chapter has a number of recipes. Each recipe i
 - Chapter 8 - Managing Windows Networking
 - Chapter 9 - Managing Network Shares
 - Chapter 10 - Managing Internet Information Server
-- Chapter 12 - Managing Hyper-V
+- Chapter 11 - Managing Hyper-V
+- Chapter 12 - Managing Azure
 - Chapter 13 - Using Desired State Configuration
+
+Each chapter has a separate folder in thei repo, and inside each chapter there is a **Readme.MD** file that describes the recipes in the chapter.
 
 
 
 **Note**
 
-The recipes are 'as is' - if they work, great, if not, oh well. Worth what you paid for it! This repo and the documentation inside is a work in progress. It's not yet complete. 
+All recipes are 'as is' - if they work, great, if not, oh well. Worth what you paid for it! This repo and the documentation inside is a work in progress. It's not yet complete. 
 
 
 **Feedback**
