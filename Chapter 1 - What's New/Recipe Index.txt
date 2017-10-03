@@ -1,9 +1,0 @@
-Module 1 - What's New
-
-1.1 - Explore RSAT Tools
-1.2 - Discover new cmdlets in PowerShell 4 and Windows Server 2012 R2
-1.4 - Discover new cmdlets in PowerShell 5/5.1 and Windows Server 2016
-1.5 - Explore PowerShellGet
-1.6 - Explore Package Management
-1.7 - Create an internal PowerShell Repository
-
