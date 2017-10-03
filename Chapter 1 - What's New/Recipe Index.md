@@ -7,6 +7,7 @@ This module looks at what is new in PowerShell since WIndows 2012 and contains t
 - 1.3 Discover new cmdlets in PowerShell 5/5.1 and Windows Server 2016 
 - 1.4 Explore PowerShellGet 
 - 1.5 Explore Package Management 
-- 1.6 Create an internal PowerShell Repository 
+- 1.6 Create an internal PowerShell repository 
+
 
 
