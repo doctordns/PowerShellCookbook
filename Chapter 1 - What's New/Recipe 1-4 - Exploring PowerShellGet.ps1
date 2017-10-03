@@ -1,19 +1,17 @@
 ﻿# Recipe 1-4 - Exploring PowerShellGet
-#
+# This recipe looks at what you can get with PowerShell Get
 
 # 1. Begin by reviewing the commands available in the PowerShellGet module:
 Get-Command -Module PowerShellGet
 
-# 2. Before moving on, you should update to the latest NuGet to get the
-#    PackageManagement module current, then update the PowerShellGet module
-#    per the GitHub instructions at https:/​/​github.​com/​powershell/​powershellget.
+# 2. Before moving on, update to the latest NuGet to get the PackageManagement 
+#    module current, then update the PowerShellGet module per the GitHub 
+#    instructions at https:/​/​github.​com/​powershell/​powershellget. Note that
 #    PowerShellGet has a dependency on PackageManagement, which in turn relies
-#    on NuGet. PowerShellGet and PackageMangagement both come within
-#    Windows 10 and Server 2016, but Windows updates are less frequent than
+#    on NuGet. PowerShellGet and PackageMangagement both come with  Windows 10
+#    and Windows Server 2016. Updates via Windows Updates are less frequent than
 #    releases at the PowerShell gallery. Updating ensures you have the latest versions
-#    of all the dependencies. 
-#
-#    To update NuGet:
+#    of all the dependencies. To update NuGet:
 Install-PackageProvider -Name NuGet -Force -Verbose
 
 # 3. Close your PowerShell session by running Exit and open a new PowerShell
