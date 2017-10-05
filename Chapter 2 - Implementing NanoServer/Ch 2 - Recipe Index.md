@@ -1,13 +1,11 @@
-# Module 1 - What's New In PowerShell and Windows Server 2016
+# Module 2 - Managing Nano Server
 
-This module looks at what is new in PowerShell since WIndows 2012 and contains the following recipes:
+This module looks setting up and managing Nano Server
 
-- 1.1 Explore RSAT Tools 
-- 1.2 Discover new cmdlets in PowerShell 4 and Windows Server 2012 R2 
-- 1.3 Discover new cmdlets in PowerShell 5/5.1 and Windows Server 2016 
-- 1.4 Explore PowerShellGet 
-- 1.5 Explore Package Management 
-- 1.6 Create an internal PowerShell repository 
+
+- 2.1 - Deploy Nano Server in a VM
+- 2.2 - Connect to and manage Nano Server
+- 2.3 - Install roles and features with Nano Server packages
 
 
 
