@@ -27,6 +27,17 @@ This step should read
                         -TargetPath $NanoVMPath `
                         -ComputerName $NanoComputerName
 
+### Page 61 - Step 11 
+
+This step should read
+
+    New-VM -VHDPath $NanoVMPath `
+           -Name $NanoComputerName `
+           -Path $NanoVMFolder `
+           -SwitchName $SwitchName `
+           -Generation 2 `
+           -Verbose
+    
 
 
 
