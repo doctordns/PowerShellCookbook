@@ -3,7 +3,13 @@
 ##### Author: <tfl@psp.co.uk> 
 ##
 
-10/7/2017 11:30:29 AM 
+
+## General 
+When this chapter was written, Microsoft had positioned Nano Server as a sub-set of Server Core, capable of supporting
+various infrastructure roles (IIS, DNS, DHCP, etc). But after this chapter went to press, Microsoft re-focused the
+approach to Nano Server. This chapter focuses on how Nano Server used to work (and still does for Windows Server 2016), 
+although this changes going forward. 
+
 ### Page 60 - Step 5
 
 This step should read:
@@ -64,6 +70,12 @@ This step should read:
 This step should read:
 
     Test-WSMan -ComputerName $NanoServerIP
+
+### Page 80 - Getting ready
+
+This recipe should have added the Nano Server you created in Recipe 2-2. 
+
+
 
     
 
