@@ -1,5 +1,5 @@
 # Errata - Chapter 2
-##### As of :  10/7/2017 11:30:36 AM  
+##### As of :  10/8/2017 8:20:52 PM 
 ##### Author: <tfl@psp.co.uk> 
 ##
 
