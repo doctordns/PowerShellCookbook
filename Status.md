@@ -1,6 +1,11 @@
 ##This file describes changes of this repository.
 
 
+###Date 10.10.2017
+
+Added Recipe 3.1, and updated chapter 3 errata and index files
+Added individual status to status.md to show the chapters so far validated.
+
 ###Date 8.10.2017
 
 All recipes in chapter 2 added, checked and uploaded
