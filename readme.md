@@ -10,7 +10,7 @@ The book has 13 chapters and each chapter has a number of recipes. Each recipe i
 
 - Chapter 1  - What's New in PowerShell and Windows Server 2013 (all recipes validated)
 - Chapter 2  - Implementing Nano Server (all recipes validated)
-- Chapter 3  - Managing Windows Update
+- Chapter 3  - Managing Windows Update (all recipes validated)
 - Chapter 4  - Managing Printers
 - Chapter 5  - Managing Windows Server Backup
 - Chapter 6  - Managing Performance
@@ -24,7 +24,7 @@ The book has 13 chapters and each chapter has a number of recipes. Each recipe i
 
 
 
-Each chapter has a separate folder in this repository, and inside each chapter there is a **Readme.MD** file that describes the recipes in the chapter.
+Each chapter has a separate folder in this repository, and inside each chapter there is a **Readme.MD** file that describes the recipes in the chapter along with the PowerShell scripts making up each recipe.
 
 
 
