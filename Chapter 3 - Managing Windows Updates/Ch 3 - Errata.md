@@ -58,6 +58,49 @@ This did not seem to work so the step was changed (and now works, so as to read:
     While ($WSUSSubscription.GetSynchronizationStatus() -ne `
               'NotProcessing')
 
+#### Page 101-102 - Step 7
+
+This step (over two pages!) should now read:
+    
+    $WSUSServer = Get-WsusServer
+    $WSUSSubscription = $WSUSServer.GetSubscription()
+    # Start synchronizing available updates
+    $WSUSSubscription.StartSynchronization()
+    $IntervalSeconds = 5
+    # Wait for synchronizing to start
+    Do {
+         Write-Output $WSUSSubscription.GetSynchronizationProgress()
+         Start-Sleep -Seconds $IntervalSeconds
+    }
+    While ($WSUSSubscription.GetSynchronizationStatus() -eq `
+        'NotProcessing')
+    #wait for all phases of process to end
+    Do {
+         Write-Output $WSUSSubscription.GetSynchronizationProgress()
+         Start-Sleep -Seconds $IntervalSeconds
+    }
+    Until ($WSUSSubscription.GetSynchronizationStatus() -eq `
+        'NotProcessing')
+
+#### Page 106 - Getting Ready
+
+If you add the RSAT feature on WSUS1, you may need to reboot your system.
+
+
+#### Page 110 - Getting ready
+
+If you have completed all the previous recipes, then it can take some time before the WSUS GPO object is applied and the system's Windows Update client registers with the WSUS server. If you are testing this recipe, you need to wait until `Get-WsusComputer` 'finds' DC1.  
+
+
+### Page 110 - Step 3
+
+This step should read:
+
+    $DCGroup = $WSUSServer.GetComputerTargetGroups() |
+        Where-Object -Name -eq 'Domain Controllers'
+    Get-WsusComputer |
+        Where-Object ComputerTargetGroupIDs -Contains $DCGroup.id
+
 
 
     
