@@ -44,7 +44,11 @@ in the `$env:TEMP` folder and varies. Adjust this step to use the log file gener
 
 ### Page 94 - Step 13
 
-This step should read:
+In the published book, step 14 started:
+
+    $WSUSSubscription.StartSynchronizationForCategoryOnly()
+
+This did not seem to work so the step was changed (and now works, so as to read:
 
     $WSUSSubscription.StartSynchronization()
     Do {
@@ -53,6 +57,7 @@ This step should read:
        } 
     While ($WSUSSubscription.GetSynchronizationStatus() -ne `
               'NotProcessing')
+
 
 
     
