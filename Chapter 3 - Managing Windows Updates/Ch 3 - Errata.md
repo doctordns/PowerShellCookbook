@@ -102,7 +102,45 @@ This step should read:
         Where-Object ComputerTargetGroupIDs -Contains $DCGroup.id
 
 
+### Page 112 - Step 1
 
+This step should read:
+
+    $WSUSServer = Get-WsusServer
+    $ApprovalRule = 
+        $WSUSServer.CreateInstallApprovalRule('Critical Updates')
+
+### Page 112 - Step 2
+
+This step should read:
+
+    $type = 'Microsoft.UpdateServices.Administration.' + `
+            'AutomaticUpdateApprovalDeadline'
+    $RuleDeadLine = New-Object -Typename $type
+    $RuleDeadLine.DayOffset = 3
+    $RuleDeadLine.MinutesAfterMidnight = 180
+    $ApprovalRule.Deadline = $RuleDeadLine
+
+### Page 112 - Step 3
+
+This step should read:
+
+    $UpdateClassification = $ApprovalRule.GetUpdateClassifications()
+    $UpdateClassification.Add(($WSUSServer.GetUpdateClassifications() |
+        Where-Object -Property Title -eq 'Critical Updates'))
+    $UpdateClassification.Add(($WSUSServer.GetUpdateClassifications() |
+        Where-Object -Property Title -eq 'Definition Updates'))
+    $ApprovalRule.SetUpdateClassifications($UpdateClassification)
+
+### Page Page 113 - step 4
+
+This step should read:
+    
+    $TargetGroups = New-Object `
+        Microsoft.UpdateServices.Administration.ComputerTargetGroupCollection
+    $TargetGroups.Add(($WSUSServer.GetComputerTargetGroups() |
+        Where-Object -Property Name -eq "Domain Controllers"))
+    $ApprovalRule.SetComputerTargetGroups($TargetGroups)
     
 
 
