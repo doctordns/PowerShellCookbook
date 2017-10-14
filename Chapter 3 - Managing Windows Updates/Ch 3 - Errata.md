@@ -76,7 +76,7 @@ This step (over two pages!) should now read:
         'NotProcessing')
     #wait for all phases of process to end
     Do {
-         Write-Output $WSUSSubscription.GetSynchronizationProgress()
+         Write-Ou#tput $WSUSSubscription.GetSynchronizationProgress()
          Start-Sleep -Seconds $IntervalSeconds
     }
     Until ($WSUSSubscription.GetSynchronizationStatus() -eq `
@@ -84,7 +84,16 @@ This step (over two pages!) should now read:
 
 #### Page 106 - Getting Ready
 
-If you add the RSAT feature on WSUS1, you may need to reboot your system.
+If you add the RSAT feature on `WSUS1`, you may need to reboot your system.
+
+
+#### Page 107 - Step 4
+
+If you update Windows Server, change this step to read:
+
+    $AutoUpdates = New-Object -ComObject "Microsoft.Update.AutoUpdate"
+    $AutoUpdates.DetectNow()
+
 
 
 #### Page 110 - Getting ready
