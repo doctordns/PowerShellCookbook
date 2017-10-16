@@ -29,5 +29,23 @@ Should read:
                                Type, PortName, Location, Shared
 
 
-### Page 123, step 6
+### Page 129, step 3
 Should read:      
+
+    $Ps = New-Object `
+           -TypeName System.Printing.PrintServer `
+           -ArgumentList $Permissions
+
+
+### Page 129, second method, step 2:
+
+Should read:
+
+    $RPath = 'HKLM:\SYSTEM\CurrentControlSet\Control\' +
+             'Print\Printers'
+    $Spooldir = 'C:\SpoolViaRegistry' # NB: Folder should exist
+    Set-ItemProperty -Path $RPath `
+                     -Name DefaultSpoolDirectory `
+                     -Value 'C:\SpoolViaRegistry'
+       
+

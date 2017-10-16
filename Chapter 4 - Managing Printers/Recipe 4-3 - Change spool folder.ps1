@@ -1,34 +1,51 @@
-﻿# Recipe 4-3 Change Printer Spool folder path
-# The Default printer spool path is: C:\Windows\system32\spool\PRINTERS
+﻿#  Recipe 4-3 - Changing the spool directory.
 
-# 1. Load the System.Printing assembly
+# 1. Load the System.Printing namespace and classes:
 Add-Type -AssemblyName System.Printing
 
-# 2. Define required permissions (ability to administrate the server)
-$Permissions = [System.Printing.PrintSystemDesiredAccess]::AdministrateServer
+# 2. Define the required permissions—that is, the ability to administrate the server:
+$Permissions =
+   [System.Printing.PrintSystemDesiredAccess]::
+          AdministrateServer
 
-# 3. Create Print Server object with required permissions
-$Ps = New-Object System.Printing.PrintServer -ArgumentList $Permissions
+# 3. Create a PrintServer object with the required permissions:
+$Ps = New-Object `
+       -TypeName System.Printing.PrintServer `
+       -ArgumentList $Permissions
 
-# 4. Update the default spool folder path
-$Newpath = 'C:\spool'
-$Ps.DefaultSpoolDirectory = $Newpath 
 
-# 5. Commit the change
+# 4. Update the default spool folder path:
+$Newpath = 'C:\Spool' # NB this should exist!
+$Ps.DefaultSpoolDirectory = $Newpath
+
+# 5. Commit the change:
 $Ps.Commit()
 
-# 6. Restart the Spooler
+# 6. Restart the Spooler to accept the new folder:
 Restart-Service -Name Spooler
 
-# 7. View the results
-New-Object System.Printing.PrintServer  |
-     Format-Table Name, DefaultSpoolDirectory
+# 7. Once the Spooler has restarted, view the results:
+New-Object -TypeName System.Printing.PrintServer |
+    Format-Table -Property Name,
+                  DefaultSpoolDirectory
 
-# Here is another way
+#  Another way to set the Spooler directory is by directly editing the registry as follows:
+# 1. First stop the Spooler service:
+Stop-Service -Name Spooler
 
-Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Print\Printers"
+# 2. Set the spool directory registry setting:
+$RPath = 'HKLM:\SYSTEM\CurrentControlSet\Control\' +
+         'Print\Printers'
 
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Print\Printers"`
-     DefaultSpoolDirectory -value 'C:\SpoolViaRegistry'
+$Spooldir = 'C:\SpoolViaRegistry' # Folder should exist
+Set-ItemProperty -Path $RPath `
+                 -Name DefaultSpoolDirectory `
+                 -Value 'C:\SpoolViaRegistry'
 
+# 3. Restart the Spooler:
+Start-Service -Name Spooler
 
+# 4. View the results:
+New-Object -TypeName System.Printing.PrintServer |
+    Format-Table -Property Name,
+                           DefaultSpoolDirectory
