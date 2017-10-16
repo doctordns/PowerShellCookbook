@@ -49,3 +49,17 @@ Should read:
                      -Value 'C:\SpoolViaRegistry'
        
 
+### Page 132 - Step 1
+
+Should read:
+
+    Add-PrinterDriver -Name  `
+                      'HP LaserJet 9000 PS Class Driver'
+
+### Page 132 - Step 3
+
+Should read:
+
+    Set-Printer -Name $Printer.Name `
+                -DriverName 'HP LaserJet 9000 PS Class Driver'
+    
