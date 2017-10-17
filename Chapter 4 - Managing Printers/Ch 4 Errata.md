@@ -63,3 +63,9 @@ Should read:
     Set-Printer -Name $Printer.Name `
                 -DriverName 'HP LaserJet 9000 PS Class Driver'
     
+### Page 136 - step 7
+
+Should read:
+
+    $PermType = $flag.name  `
+               -Csplit '(?=[A-Z])' -ne '' -join ' '
