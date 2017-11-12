@@ -63,3 +63,34 @@ Should read:
     Set-Printer -Name $Printer.Name `
                 -DriverName 'HP LaserJet 9000 PS Class Driver'
     
+### Page 136 - step 7
+
+Should read:
+
+    $PermType = $flag.name  `
+               -Csplit '(?=[A-Z])' -ne '' -join ' '
+
+### Page 138 - step 1
+
+Should read:
+
+    $GroupName = 'Sales Group'
+    $Group = New-Object -Typename `
+                            Security.Principal.NTAccount `
+                        -Argumentlist $GroupName
+
+#### Page 138 - Step 2
+
+Should read:
+
+    $GroupSid = $Group.Translate(
+                [Security.Principal.Securityidentifier]).Value
+
+
+#### Page 138 - Step 3
+
+Should read:
+
+    $SDDL = 'O:BAG:DUD:PAI(A;OICI;FA;;;DA)' +
+            "(A;OICI;0x3D8F8;;;$GroupSid)"
+
