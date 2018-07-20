@@ -1,0 +1,119 @@
+﻿# Recipe 5-7.log
+
+# Step 1
+
+PS C:> $CounterSets = Get-Counter -ListSet * 
+PS C:> "There are {0} counter sets on [{1}]" -f $CounterSets.count, (hostname)
+There are 167 counter sets on [SRV1]
+
+# step 2
+
+There are 165 counters on [dc1]
+There are 147 counters on [ca]
+There are 193 counters on [dg]
+There are 167 counters on [srv1]
+There are 175 counters on [fs1]
+There are 174 counters on [fs2]
+There are 147 counters on [psrv]
+
+
+#   STEP 3
+
+CounterSetName           Description
+--------------           -----------
+Processor                The Processor performance object consists of counters that measure aspects of processor
+                         activity. The processor is the part of the computer that performs arithmetic and logical
+                         computations, initiates operations on peripherals, and runs the threads of processes.  A
+                         computer can have multiple processors.  The processor object represents each processor as an
+                         instance of the object.
+Memory                   The Memory performance object  consists of counters that describe the behavior of physical
+                         and virtual memory on the computer.  Physical memory is the amount of random access memory on
+                         the computer.  Virtual memory consists of the space in physical memory and on disk.  Many of
+                         the memory counters monitor paging, which is the movement of pages of code and data between
+                         disk and physical memory.  Excessive paging, a symptom of a memory shortage, can cause delays
+                         which interfere with all system processes.
+Network QoS Policy       This counter set consists of flow statistics specific to a network QoS policy.
+Network Interface        The Network Interface performance object consists of counters that measure the rates at which
+                         bytes and packets are sent and received over a network connection.  It includes counters that
+                         monitor connection errors.
+Network Adapter          The Network Adapter performance object consists of counters that measure the rates at which
+                         bytes and packets are sent and received over a physical or virtual network connection.  It
+                         includes counters that monitor connection errors.
+FileSystem Disk Activity The FileSystem Disk Activity performance counter set consists of counters that measure the
+                         aspect of filesystem's IO Activity.  This counter set measures the number of bytes filesystem
+                         read from and wrote to the disk drive.
+LogicalDisk              The Logical Disk performance object consists of counters that monitor logical partitions of a
+                         hard or fixed disk drives.  Performance Monitor identifies logical disks by their a drive
+                         letter, such as C.
+PhysicalDisk             The Physical Disk performance object consists of counters that monitor hard or fixed disk
+                         drive on a computer.  Disks are used to store file, program, and paging data and are read to
+                         retrieve these items, and written to record changes to them.  The values of physical disk
+                         counters are sums of the values of the logical disks (or partitions) into which they are
+                         divided.
+
+
+# Step 4
+
+Memory counter set has [36] counters
+Processor counter set has [15] counters
+
+
+
+#  Step 5
+
+
+At                   Counter                                                                      Value
+14/01/2017 00:30:00  \\srv1\memory\page faults/sec                                     12.0078471280982
+14/01/2017 00:30:01  \\srv1\memory\available bytes                                           1257881600
+14/01/2017 00:30:02  \\srv1\memory\committed bytes                                           4254994432
+14/01/2017 00:30:03  \\srv1\memory\commit limit                                              5827514368
+14/01/2017 00:30:04  \\srv1\memory\write copies/sec                                                   0
+14/01/2017 00:30:05  \\srv1\memory\transition faults/sec                               1.99866808758643
+14/01/2017 00:30:06  \\srv1\memory\cache faults/sec                                                   0
+14/01/2017 00:30:07  \\srv1\memory\demand zero faults/sec                                             0
+14/01/2017 00:30:08  \\srv1\memory\pages/sec                                                          0
+14/01/2017 00:30:09  \\srv1\memory\pages input/sec                                                    0
+14/01/2017 00:30:10  \\srv1\memory\page reads/sec                                                     0
+14/01/2017 00:30:11  \\srv1\memory\pages output/sec                                                   0
+14/01/2017 00:30:12  \\srv1\memory\pool paged bytes                                           137068544
+14/01/2017 00:30:13  \\srv1\memory\pool nonpaged bytes                                         42594304
+14/01/2017 00:30:14  \\srv1\memory\page writes/sec                                                    0
+14/01/2017 00:30:15  \\srv1\memory\pool paged allocs                                             108561
+14/01/2017 00:30:16  \\srv1\memory\pool nonpaged allocs                                           76393
+14/01/2017 00:30:17  \\srv1\memory\free system page table entries                              12311148
+14/01/2017 00:30:18  \\srv1\memory\cache bytes                                                 31903744
+14/01/2017 00:30:19  \\srv1\memory\cache bytes peak                                            97136640
+14/01/2017 00:30:20  \\srv1\memory\pool paged resident bytes                                  101056512
+14/01/2017 00:30:21  \\srv1\memory\system code total bytes                                      3825664
+14/01/2017 00:30:22  \\srv1\memory\system code resident bytes                                   3547136
+14/01/2017 00:30:23  \\srv1\memory\system driver total bytes                                   13737984
+14/01/2017 00:30:24  \\srv1\memory\system driver resident bytes                                12300288
+14/01/2017 00:30:25  \\srv1\memory\system cache resident bytes                                        0
+14/01/2017 00:30:26  \\srv1\memory\% committed bytes in use                            73.0534822617316
+14/01/2017 00:30:27  \\srv1\memory\available kbytes                                             1224696
+14/01/2017 00:30:28  \\srv1\memory\available mbytes                                                1197
+14/01/2017 00:30:29  \\srv1\memory\transition pages repurposed/sec                                    0
+14/01/2017 00:30:30  \\srv1\memory\free & zero page list bytes                                879222784
+14/01/2017 00:30:31  \\srv1\memory\modified page list bytes                                    42606592
+14/01/2017 00:30:32  \\srv1\memory\standby cache reserve bytes                                182726656
+14/01/2017 00:30:33  \\srv1\memory\standby cache normal priority bytes                        193556480
+14/01/2017 00:30:34  \\srv1\memory\standby cache core bytes                                           0
+14/01/2017 00:30:35  \\srv1\memory\long-term average standby cache lifetime (s)                   14400
+
+Step 6
+
+PS C:\foo> Get-Counter -ListSet Processor, Memory, Network*, *Disk* | 
+      Select-Object -Property CounterSetName, CounterSetType
+
+
+CounterSetName           CounterSetType
+--------------           --------------
+Processor                 MultiInstance
+Memory                   SingleInstance
+Network QoS Policy       SingleInstance
+Network Interface         MultiInstance
+Network Adapter           MultiInstance
+FileSystem Disk Activity SingleInstance
+LogicalDisk               MultiInstance
+PhysicalDisk              MultiInstance
+

@@ -1,6 +1,7 @@
-# This file describes changes of this repository.
+# This file describes changes of this repository
 
 ## Date 20.7.2018
+
 Added IIS Recipes (Ch 10)
 Updated PKI installation
 

@@ -3,7 +3,7 @@
 $IHT = @{
     Name  = 'MLB'
     IncludeManagementTools = $True
-    IncludeAllSubFeature   = $True- 
+    IncludeAllSubFeature   = $True
 }
 Install-WindowsFeature @IHT
 

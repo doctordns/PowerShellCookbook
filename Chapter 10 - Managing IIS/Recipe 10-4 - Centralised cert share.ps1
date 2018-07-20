@@ -1,7 +1,7 @@
 ﻿# Recipe 10-4 - Configuring a Central Cert Store
 
 #  1. Remove existing certificates
-Get-ChildItem Cert:\localmachine\My | 
+Get-ChildItem Cert:\localmachine\My |
     Where-Object Subject -Match 'SRV1.Reskit.Org' |
        Remove-Item -ErrorAction SilentlyContinue
 Get-ChildItem Cert:\localmachine\root |
@@ -45,18 +45,17 @@ $Store.Close()
 $Certpw   = 'SSLCerts101!'
 $Certpwss = ConvertTo-SecureString -String $Certpw -Force -AsPlainText
 $CertHT = @{
-    Cert     = $SSLCert
+    Cert      = $SSLCert
     FilePath  = 'C:\srv1.reskit.net.pfx'
     Password  = $certpwss
 }
 
-Export-PfxCertificate @CertHT -
+Export-PfxCertificate @CertHT
 $MHT = @{
-    Pat     h   = 'C:\srv1.reskit.net.pfx' 
+    Path        = 'C:\srv1.reskit.net.pfx'
     Destination = '\\dc1\SSLCertShare\srv1.reskit.net.pfx'
     Force       = $True
 }
-
 Move-Item @MHT
 
 # 6. Install the CCS feature on SRV1
@@ -66,25 +65,30 @@ Install-WindowsFeature Web-CertProvider
 $User       = 'Reskit\SSLCertShare'
 $Password   = 'Pa$$w0rd'
 $PSS = ConvertTo-SecureString  -String $Password -AsPlainText -Force
-$NewUserHT  = @{AccountPassword       = $PSS
-                Enabled               = $true
-                PasswordNeverExpires  = $true
-                ChangePasswordAtLogon = $false
-                SamAccountName        = SSLCertShare
-                UserPrincipalName     = 'SSLCertShare@reskit.org'
-                Name                  = "SSLCertShare" 
-                DisplayName           = 'SSL Cert Share User'
-                }
-New-ADUser @NewUserHT 
+$NewUserHT  = @{
+    AccountPassword       = $PSS
+    Enabled               = $true
+    PasswordNeverExpires  = $true
+    ChangePasswordAtLogon = $false
+    SamAccountName        = 'SSLCertShare'
+    UserPrincipalName     = 'SSLCertShare@reskit.org'
+    Name                  = 'SSLCertShare'
+    DisplayName           = 'SSL Cert Share User'
+}
+New-ADUser @NewUserHT
 
-# 8 Configure the SSL Cert share in the registry
+# 8 Configure the SSL Cert share in the registry}
+
+
 $IPHT = @{
-    Path   = 'HKLM:\SOFTWARE\Microsoft\IIS\CentralCertProvider\.
+    Path   = 'HKLM:\SOFTWARE\Microsoft\IIS\CentralCertProvider\'
     Name   =  'Enabled'
     Value  = 1
+}
 Set-ItemProperty @IPHT
+
 $IPHT.Name              = 'CertStoreLocation'
-$IP.Valule              = \\DC1\SSLCertShare
+$IP.Valule              = '\\DC1\SSLCertShare'
 Set-ItemProperty @IPHT
 $WCHT = @{
     CertStoreLocation  = '\\DC1\SSLCertShare'
@@ -124,7 +128,7 @@ $IE.Visible = $true
 
 $sb = {
 Get-SmbShare 'SSLCertShare' | Remove-SmbShare -force
-RI  -Path c:\SSLCerts -Incl *.* -Recurse
+    Remove-Iitem  -Path c:\SSLCerts -Incl *.* -Recurse
 }
 Invoke-Command -ScriptBlock $sb -ComputerName DC1
 
