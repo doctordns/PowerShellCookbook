@@ -1,1 +1,10 @@
 Module 10 - Managing IIS
+Recipe 10-1 - Install IIS Server.ps1
+Recipe 10-2 - IConfiguring IIS for SSL.ps1
+Recipe 10-3 - Manage TLS Cipher Suites.ps1
+Recipe 10-4 - Centralised cert share.ps1
+Recipe 10-4 - Centralised Certral Certificate Store.ps1
+Recipe 10-5 - Configuring IIS Bindings.ps1
+Recipe 10-6 - Configure IIS Logging and Log Files.ps1
+Recipe 10-7 - Manage Applications and Application Pools.ps1
+Recipe 10-8 - NLB.ps1
