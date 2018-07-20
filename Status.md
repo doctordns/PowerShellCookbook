@@ -2,6 +2,7 @@
 
 ## Date 20.7.2018
 Added IIS Recipes (Ch 10)
+Updated PKI installation
 
 ## Date 10.10.2017
 
