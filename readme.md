@@ -16,7 +16,7 @@ Read the book for more details on pre-requisites for each chapter.
 - Chapter 3  - Managing Windows Update
 - Chapter 4  - Managing Printers
 - Chapter 5  - Managing Windows Server Backup  _(to be done)_
-- Chapter 6  - Managing Performance _(in progress)_
+- Chapter 6  - Managing Performance
 - Chapter 7  - Troubleshooting Windows _(to be done)_
 - Chapter 8  - Managing Windows Networking _(in progress)_
 - Chapter 9  - Managing Network Shares  _(to be done)_
