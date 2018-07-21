@@ -1,15 +1,16 @@
-﻿# Recipe 5-5
-# Backup and restore a Hyper-V VM
+﻿# Recipe 5-5 - Backup and restore a Hyper-V VM
 # Run this on the Hyper-V Host that runs the DC1 VM.
 
 # 1. Look at the VM
 Get-VM DC1
 
 # 2. Create the backup using Wbadmin
-Wbadmin Start Backup -BackupTarget:C:\ -HyperV:"DC1" 
+Wbadmin Start Backup -BackupTarget:C:\ -HyperV:'DC1'
 
 # 3. Examine the log file created by this backup
-Get-Content -Path C:\WINDOWS\Logs\WindowsServerBackup\Backup-29-12-2016_23-56-53.log
+$P = 'Path C:\WINDOWS\Logs\WindowsServerBackup\' +
+     'Backup-29-12-2016_23-56-53.log'
+Get-Content $P
 
 # 4. Look at what was created
 Get-ChildItem -Path C:\WindowsImageBackup
@@ -38,8 +39,9 @@ Get-VM -Name DC1
 
 # 7. Now restore the VM from backup
 $Backupversions = Wbadmin.Exe Get Versions -backuptarget:C: 
-$Version        = $Backupversions | Select-String 'Version identifier' |
-                     Select-Object -Last 1
+$Version        = $Backupversions | 
+                     Select-String 'Version identifier' |
+                         Select-Object -Last 1
 $VID            = $Version.Line.Split(' ')[2]
 $Cmd  = "& Wbadmin.Exe Start Recovery -Itemtype:Hyperv -Items:DC1 "
 $Cmd += "-Version:$VID -AlternateLocation -RecoveryTarget:C:\Recovery"
