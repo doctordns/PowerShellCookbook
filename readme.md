@@ -48,6 +48,5 @@ Chapter 13 - Using Desired State Configuration
 
 ### Conversion and update in progress
 
-Chapter 6  - Managing Performance  
 Chapter 8  - Managing Windows Networking  
 Chapter 11 - Managing Hyper-V  
