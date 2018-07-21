@@ -1,8 +1,9 @@
 ﻿# 7-3 Create and add a data collector set
+# This variant creates a TSV Output file
 
 #region Create the counter
 # 1. Create and populate a new collector 
-$Name = 'SRV1 Collector Set'
+$Name = 'SRV1 Collector Set - tsv'
 $SRV1CS = New-Object -COM Pla.DataCollectorSet
 $SRV1CS.DisplayName                = $Name
 $SRV1CS.Duration                   = 12*3600  # 12 hours - 19:00
@@ -15,7 +16,7 @@ $SRV1Collector.FileName              = "$Name_"
 $SRV1Collector.FileNameFormat        = 1 
 $SRV1Collector.FileNameFormatPattern = "\-MM\-dd"
 $SRV1Collector.SampleInterval        = 15
-$SRV1Collector.LogFileFormat         = 3 # BLG separated
+$SRV1Collector.LogFileFormat         = 1  # Tab separated
 $SRV1Collector.LogAppend             = $True
 
 # 2. Define counters of interest

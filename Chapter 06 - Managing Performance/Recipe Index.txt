@@ -1,1 +1,11 @@
-Module 6 - Managing Performance
+Chapter 6 - Managing Performance
+
+Recipe 6-1 - Explore perf counters with Get-Counter.ps1
+6-1b - Stress Network.ps1
+Recipe 6-2 - Get perf data with WMI.ps1
+Recipe 6-3 - Create performance collector set.ps1
+Recipe 6-3a - Create performance collector set (TSV OUT).ps1
+Recipe 6-3b - Create performance collector set (CSV OUT).ps1
+Recipe 6-4 - Create report.ps1
+Recipe 6-5 - Create graph.ps1
+Recipe 6-X - Stop and delete a collector set.ps1

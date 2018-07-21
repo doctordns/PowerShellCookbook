@@ -1,6 +1,6 @@
-﻿# Recipe 7-5
+﻿# Recipe 6-5
 # Create GPU Graph
- 
+
 # 1. Load the Forms assembly
 Add-Type -AssemblyName System.Windows.Forms.DataVisualization
 
@@ -15,7 +15,7 @@ $CPUChart = New-Object System.Windows.Forms.DataVisualization.Charting.Chart
 # 4. Defne the chart dimensions
 $CPUChart.Width  = 1000
 $CPUChart.Height = 600
-$CPUChart.Titles.Add("SRV1 CPU Utilisation") 
+$CPUChart.Titles.Add("SRV1 CPU Utilisation")
 
 # 5 Create and define the chart area
 $ChartArea = New-Object System.Windows.Forms.DataVisualization.Charting.ChartArea
@@ -32,11 +32,10 @@ $CPUChart.Series.Add("CPUPerc")  | Out-Null
 $CPUChart.Series["CPUPerc"].ChartType = "Line"
 $CPUCounter = '\\SRV1\Processor(_Total)\% Processor Time'
 $counters | ForEach-Object{
-   $CPUChart.Series["CPUPerc"].Points.AddXY($_.$name, 
-                            $_.$CPUCounter) |
-                                Out-Null
+   $CPUChart.Series["CPUPerc"].Points.AddXY($_.$name,$_.$CPUCounter) |
+        Out-Null
 }
 
-# 8. Save the chart image.
+# 8. Save the chart image
 $CPUChart.SaveImage("C:\PerfLogs\Reports\Srv1CPU.png", 'PNG')
 MSPaint C:\PerfLogs\Reports\SRV1cpu.png

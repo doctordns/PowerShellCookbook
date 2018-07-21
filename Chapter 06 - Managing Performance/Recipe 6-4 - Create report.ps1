@@ -1,4 +1,4 @@
-﻿# Recipe 7-4 - Create Performance Report
+﻿# Recipe 6-4 - Create Performance Report
 #  Using CSV output from Recipe 7-3
 
 # 1 - Import the CSV file of counters
@@ -36,4 +36,5 @@ $Stats.CPU95   = $Stats.CPU95.tostring('n2')
 $Stats.Average = $Stats.Average.ToString('n2')
 $Stats.Maximum = $stats.Maximum.ToString('n2')
 $Stats.Minimum = $stats.Maximum.ToString('n2')
-$Stats | Format-Table -Property Property,Count, Maximum, CPU95, Minimum
+$Stats | 
+    Format-Table -Property Property,Count, Maximum, CPU95, Minimum

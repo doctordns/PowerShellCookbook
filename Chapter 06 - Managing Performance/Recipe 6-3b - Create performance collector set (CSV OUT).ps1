@@ -1,8 +1,9 @@
 ﻿# 7-3 Create and add a data collector set
+# This script creates a CSV
 
 #region Create the counter
 # 1. Create and populate a new collector 
-$Name = 'SRV1 Collector Set - tsv'
+$Name = 'SRV1 Collector Set - CSV'
 $SRV1CS = New-Object -COM Pla.DataCollectorSet
 $SRV1CS.DisplayName                = $Name
 $SRV1CS.Duration                   = 12*3600  # 12 hours - 19:00
@@ -15,7 +16,7 @@ $SRV1Collector.FileName              = "$Name_"
 $SRV1Collector.FileNameFormat        = 1 
 $SRV1Collector.FileNameFormatPattern = "\-MM\-dd"
 $SRV1Collector.SampleInterval        = 15
-$SRV1Collector.LogFileFormat         = 1  # Tab separated
+$SRV1Collector.LogFileFormat         = 0  # comma separated
 $SRV1Collector.LogAppend             = $True
 
 # 2. Define counters of interest
@@ -59,7 +60,6 @@ pause
 
 # 6. Remove the counter
 $DCStRemote = New-Object -COM Pla.DataCollectorSet  
-$Name = 'SRV1 Collector Set'
 $DCstRemote.Query($Name,'LocalHost')
 $DCstRemote.Stop($true)
 $DCstRemote.Delete()
