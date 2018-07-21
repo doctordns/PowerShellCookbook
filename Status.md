@@ -2,6 +2,8 @@
 
 ## Date 21.7.2018
 
+Started porting Ch 9 - Sharing 
+Started porting Ch 5 - backup
 Finished porting chapter 6 Performance scripts  
 Updated chapter titles to sort properly/nicely over on GitHub  
 Updated readme.md to show work to do and work in progress  
@@ -10,7 +12,7 @@ Added MIT license to this repo
 ## Date 20.7.2018
 
 Added IIS Recipes (Ch 10)  
-Updated PKI installation  
+Updated PKI installation script
 
 ## Date 10.10.2017
 
