@@ -38,16 +38,16 @@ Any comments: email Thomas Lee at DoctorDNS@Gmail.Com.
 
 ## To Do List
 
-### Scripts to be ported over
+### Scripts still to be ported over
 
-Chapter 5  - Managing Windows Server Backup
-Chapter 7  - Troubleshooting Windows
-Chapter 9  - Managing Network Shares
+Chapter 5  - Managing Windows Server Backup  
+Chapter 7  - Troubleshooting Windows  
+Chapter 9  - Managing Network Shares  
 Chapter 12 - Managing Azure  
-Chapter 13 - Using Desired State Configuration
+Chapter 13 - Using Desired State Configuration  
 
 ### Conversion and update in progress
 
-Chapter 6  - Managing Performance
-Chapter 8  - Managing Windows Networking
-Chapter 11 - Managing Hyper-V
+Chapter 6  - Managing Performance  
+Chapter 8  - Managing Windows Networking  
+Chapter 11 - Managing Hyper-V  
