@@ -1,8 +1,12 @@
 # This file describes changes of this repository
 
+## Date 22.7.2018
+Finished Ch 12 (Azure)
+Started porting troubleshooting chapter
+
 ## Date 21.7.2018
 
-Started porting Ch 9 - Sharing 
+Started porting Ch 9 - Sharing  
 Started porting Ch 5 - backup
 Finished porting chapter 6 Performance scripts  
 Updated chapter titles to sort properly/nicely over on GitHub  

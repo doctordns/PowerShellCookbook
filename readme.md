@@ -17,12 +17,12 @@ Read the book for more details on pre-requisites for each chapter.
 - Chapter 4  - Managing Printers
 - Chapter 5  - Managing Windows Server Backup  _(in progress)_
 - Chapter 6  - Managing Performance
-- Chapter 7  - Troubleshooting Windows _(to be done)_
+- Chapter 7  - Troubleshooting Windows _(in progress)_
 - Chapter 8  - Managing Windows Networking _(in progress)_
 - Chapter 9  - Managing Network Shares  _(in progress)_
 - Chapter 10 - Managing Internet Information Server
 - Chapter 11 - Managing Hyper-V _(in progress)_
-- Chapter 12 - Managing Azure  _(to be done)_
+- Chapter 12 - Managing Azure  
 - Chapter 13 - Using Desired State Configuration _(to be done)_
 
 Each chapter has a separate folder in this repository, and inside each chapter.
@@ -40,13 +40,12 @@ Any comments: email Thomas Lee at DoctorDNS@Gmail.Com.
 
 ### Scripts still to be ported over
 
-Chapter 7  - Troubleshooting Windows  
-Chapter 12 - Managing Azure  
 Chapter 13 - Using Desired State Configuration  
 
 ### Conversion and update in progress
 
 Chapter 5  - Managing Windows Server Backup  
+Chapter 7  - Troubleshooting Windows  
 Chapter 8  - Managing Windows Networking  
 Chapter 9  - Managing Network Shares  
 Chapter 11 - Managing Hyper-V  
