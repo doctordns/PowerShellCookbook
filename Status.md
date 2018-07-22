@@ -2,7 +2,7 @@
 
 ## Date 22.7.2018
 
-Finished Ch 12 (Azure)
+Started porting Ch 12 (Azure)
 Started porting troubleshooting chapter
 
 ## Date 21.7.2018

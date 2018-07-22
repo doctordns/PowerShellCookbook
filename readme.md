@@ -22,7 +22,7 @@ Read the book for more details on pre-requisites for each chapter.
 - Chapter 9  - Managing Network Shares  _(in progress)_
 - Chapter 10 - Managing Internet Information Server
 - Chapter 11 - Managing Hyper-V _(in progress)_
-- Chapter 12 - Managing Azure  
+- Chapter 12 - Managing Azure  _(in progress)_
 - Chapter 13 - Using Desired State Configuration _(to be done)_
 
 Each chapter has a separate folder in this repository, and inside each chapter.
@@ -48,4 +48,5 @@ Chapter 5  - Managing Windows Server Backup
 Chapter 7  - Troubleshooting Windows  
 Chapter 8  - Managing Windows Networking  
 Chapter 9  - Managing Network Shares  
-Chapter 11 - Managing Hyper-V  
+Chapter 11 - Managing Hyper-V 
+Chapter 12 - Managing Azure
