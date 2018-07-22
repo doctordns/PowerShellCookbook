@@ -1,4 +1,4 @@
-﻿# Recipe 12-3 Explore Storage Account
+﻿# Recipe 12-3 Explore Azure Storage Account
 
 # 1. Define key variables
 $Locname    = 'uksouth'         # location name
@@ -25,19 +25,24 @@ if (-not $RG) {
   $RG = New-AzureRmResourceGroup @RGHT2
   "RG $RgName created"
 }
-$SA = Get-AzureRmStorageAccount -Name $SAName -ResourceGroupName $RgName -ErrorAction SilentlyContinue
+$SAHT = @{
+    Name              = $SAName
+    ResourceGroupName = $RgName
+    ErrorAction       = 'SilentlyContinue'
+}
+$SA = Get-AzureRmStorageAccount @SAHT
 if (-not $SA) {
-  $SATag  = [Ordered] @{Publisher='Packt'}
-  $SATag +=           @{Author='Thomas Lee'}
-  $SAHT = @{
-    Name               = $SAName
-    ResourceGroupName  = $RgName
-    Location           = $Locname
-    Tag                = $SATag
-    SkuName            = 'Standard_LRS'
-  }
-  $SA = New-AzureRmStorageAccount  @SAHT
-  "SA $SAName created"
+    $SATag = [Ordered] @{Publisher = 'Packt'}
+    $SATag += @{Author = 'Thomas Lee'}
+    $SAHT = @{
+        Name              = $SAName
+        ResourceGroupName = $RgName
+        Location          = $Locname
+        Tag               = $SATag
+        SkuName           = 'Standard_LRS'
+    }
+    $SA = New-AzureRmStorageAccount  @SAHT
+    "SA $SAName created"
 }
 
 
@@ -52,10 +57,11 @@ $Sak
 # 4. Extract the first key's 'password'
 $Key = ($Sak | Select-Object -First 1).Value
 
-# 5. Get the Storage Account context (encapsulates credentials for the storage account)
+# 5. Get the Storage Account context which encapsulates credentials
+#   for the storage account)
 $SCHT = @{
-  StorageAccountName = $SAName
-  StorageAccountKey  = $Key
+    StorageAccountName = $SAName
+    StorageAccountKey = $Key
 }
 $SACon = New-AzureStorageContext @SCHT
 $SACon
@@ -66,16 +72,17 @@ New-AzureStorageContainer -Name $CName2 -Context $SACon -Permission Blob
 
 
 # 7. View blob container
-Get-AzureStorageContainer -Context $SACon | 
+Get-AzureStorageContainer -Context $SACon |
     Select-Object -ExpandProperty CloudBlobContainer
 
 
 # 8. Create a blob
 'This is a small blob!!' | Out-File .\azurefile.txt
 $BHT = @{
-  Context   = $SACon
-  File      = '.\azurefile.txt'
-  Container = $CName}
+    Context = $SACon
+    File = '.\azurefile.txt'
+    Container = $CName
+}
 $Blob = Set-AzureStorageBlobContent  @BHT
 $Blob
 
@@ -84,6 +91,6 @@ $BlobUrl = "$($Blob.Context.BlobEndPoint)$CName/$($Blob.name)"
 $BlobUrl
 
 # 10. view the URL via IE
-$IE  = New-Object -ComObject InterNetExplorer.Application
+$IE = New-Object -ComObject InterNetExplorer.Application
 $IE.Navigate2($BlobUrl)
 $IE.Visible = $true

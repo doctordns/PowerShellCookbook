@@ -1,5 +1,4 @@
-﻿# Recipe 12-4
-# Create an Azure SMB Share
+﻿# Recipe 12-4 -  Create an Azure SMB Share
 
 # 1.  Define Variables
 $Locname    = 'uksouth'      # location name
@@ -12,29 +11,45 @@ Login-AzureRmAccount
 $RG = Get-AzureRmResourceGroup -Name $rgname `
                                -ErrorAction SilentlyContinue
 if (-not $RG) {
-  $RGTag  = [Ordered] @{Publisher='Packt'}
-  $RGTag +=           @{Author='Thomas Lee'}
-  $RG = New-AzureRmResourceGroup -Name $RgName `
-                                 -Location $Locname -Tag $RGTag
-  "RG $RgName created"
+    $RGTag = [Ordered] @{Publisher = 'Packt'}
+    $RGTag += @{Author = 'Thomas Lee'}
+    $RG = New-AzureRmResourceGroup -Name $RgName `
+        -Location $Locname -Tag $RGTag
+    "RG $RgName created"
 }
-$SA = Get-AzureRmStorageAccount -Name $SAName -ResourceGroupName $RgName -ErrorAction SilentlyContinue
+$SAHT = @{
+    Name              = $SAName
+    ResourceGroupName = $RgName
+    ErrorAction       = 'SilentlyContinue'
+
+}
+$SA = Get-AzureRmStorageAccount @SAHT
 if (-not $SA) {
   $SATag  = [Ordered] @{Publisher='Packt'}
   $SATag +=           @{Author='Thomas Lee'}
-  $SA = New-AzureRmStorageAccount -Name $SAName `
-                                  -ResourceGroupName $RgName `
-                                  -Location $Locname -Tag $SATag `
-                                  -SkuName 'Standard_LRS'
+  $SAHT2 = {
+    Name              = $SAName
+    ResourceGroupName = $RgName `
+    Location          = $Locname
+    Tag               = $SATag
+    SkuName           = 'Standard_LRS'
+  }
+  $SA = New-AzureRmStorageAccount @SAHT2
   "SA $SAName created"
 }
 
 # 3. Get Storage key and context:
-$Sak = Get-AzureRmStorageAccountKey -Name $SAName `
-                                    -ResourceGroupName $RgName
+$SAKHT = @{
+  Name              = $SAName
+  ResourceGroupName = $RgName
+}
+$Sak = Get-AzureRmStorageAccountKey @SAKHT
 $Key = ($Sak | Select-Object -First 1).Value
-$SACon = New-AzureStorageContext -StorageAccountName $SAName `
-                                 -StorageAccountKey $Key
+$SCHT = @{
+   StorageAccountName = $SAName
+   StorageAccountKey  = $Key
+}
+$SACon = New-AzureStorageContext @SCHT
 
 # 4. Add credentials to local store:
 cmdkey /add:$SAName.file.core.windows.net /user:$SAName /pass:$Key
@@ -44,7 +59,7 @@ New-AzureStorageShare -Name $ShareName -Context $SACon
 
 # 6. Ensure Z: is not in use then mount the share as Z:
 $Mount = 'Z:'
-Get-Smbmapping -LocalPath $Mount -ErrorAction SilentlyContinue | 
+Get-Smbmapping -LocalPath $Mount -ErrorAction SilentlyContinue |
      Remove-Smbmapping -Force -ErrorAction SilentlyContinue
 $Rshare = "\\$SaName.file.core.windows.net\$ShareName"
 New-SmbMapping -LocalPath $Mount -RemotePath $Rshare `
@@ -59,7 +74,7 @@ Get-SmbMapping
 
 # 9. Now use the new share - create a file in the share:
 New-Item -Path z:\foo -ItemType Directory
-'Recipe 15-4' | Out-File -FilePath z:\foo\recipe.txt
+'Recipe 12-4' | Out-File -FilePath z:\foo\recipe.txt
 
 # 10. Retrievie details about the share contents:
 Get-ChildItem -Path z:\ -Recurse |
