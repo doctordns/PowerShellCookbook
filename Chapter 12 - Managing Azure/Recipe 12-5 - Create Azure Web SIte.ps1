@@ -8,32 +8,47 @@ $AppName    = 'packt100'
 $Locname    = 'uksouth'
 
 # 2. Login to your Azure Account and ensure the RG and SA is created.
-Login-AzureRmAccount 
-$RG = Get-AzureRmResourceGroup -Name $rgname `
-                               -ErrorAction SilentlyContinue
+Login-AzureRmAccount
+$RGHT1 = @{
+      Name        = $RgName
+      ErrorAction = 'Silentlycontinue'
+}
+$RG = Get-AzureRmResourceGroup @RGHT1
 if (-not $RG) {
   $RGTag  = [Ordered] @{Publisher='Packt'}
   $RGTag +=           @{Author='Thomas Lee'}
-  $RG = New-AzureRmResourceGroup -Name $RgName `
-                                 -Location $Locname -Tag $RGTag
-  "RG $RgName created"
+  $RGHT2 = @{
+    Name     = $RgName
+    Location = $Locname
+    Tag      = $RGTag
+  }
+  $RG = New-AzureRmResourceGroup @RGHT2
+  Write-Host "RG $RgName created"
 }
 $SA = Get-AzureRmStorageAccount -Name $SAName -ResourceGroupName $RgName -ErrorAction SilentlyContinue
 if (-not $SA) {
   $SATag  = [Ordered] @{Publisher='Packt'}
   $SATag +=           @{Author='Thomas Lee'}
-  $SA = New-AzureRmStorageAccount -Name $SAName `
-                                  -ResourceGroupName $RgName `
-                                  -Location $Locname -Tag $SATag `
-                                  -SkuName 'Standard_LRS'
+  $SAHT = @{
+    Name              = $SAName
+    ResourceGroupName = $RgName
+    Location          = $Locname
+    Tag               = $SATag
+    SkuName           = 'Standard_LRS'
+  }
+  $SA = New-AzureRmStorageAccount @SAHT
   "SA $SAName created"
 }
 
-# 3. Create app service plan 
-New-AzureRmAppServicePlan -ResourceGroupName $RgName `
-                          -Name $AppSrvName `
-                          -Location $Locname -Tier Free |
-                                Out-Null
+# 3. Create app service plan
+$SPHT = @{
+     ResourceGroupName   = $RgName
+     Name                = $AppSrvName
+     Location            = $Locname
+     Tier               =  'Free'
+}
+
+New-AzureRmAppServicePlan @SPHT |  Out-Null
 
 # 4. View the service plan
 Get-AzureRmAppServicePlan -ResourceGroupName $RGname -Name $AppSrvName
@@ -68,9 +83,12 @@ $Site     = $x.publishData.publishProfile[1].publishUrl
 # 10. Create ftp client:
 $Ftp             = [System.Net.FtpWebRequest]::Create("$Site/Index.Html")
 $Ftp.Method      = [System.Net.WebRequestMethods+Ftp]::UploadFile
-$Ftp.Credentials = New-Object System.Net.NetworkCredential -ArgumentList $UserName,$UserPwd
-$Ftp.UseBinary   = $true
-$Ftp.UsePassive  = $true
+$FTPHT = @{
+    ArgumentList = '$UserName, $UserPwd'
+}
+$Ftp.Credentials = New-Object System.Net.NetworkCredential -@FTPHT
+$Ftp.UseBinary = $true
+$Ftp.UsePassive = $true
 
 # 11. Get the content of the file to upload as a byte array
 $Filename = 'C:\Index.htm'
@@ -87,6 +105,6 @@ $Stream.Dispose()
 
 # 14. NOW look at the site!
 $SiteUrl = "https://$($WebApp.DefaultHostName)"
-$IE  = New-Object -ComObject InterNetExplorer.Application
+$IE = New-Object -ComObject InterNetExplorer.Application
 $IE.Navigate2($SiteUrl)
 $IE.Visible = $true
