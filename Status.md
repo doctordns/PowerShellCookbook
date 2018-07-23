@@ -1,7 +1,12 @@
 # This file describes changes of this repository
 
+## Date 23.7.2018
+
+Finished porting Ch 12 (Azure)
+
 ## Date 22.7.2018
 
+Finished porting Ch 5(Backup)
 Started porting Ch 12 (Azure)
 Started porting troubleshooting chapter
 
