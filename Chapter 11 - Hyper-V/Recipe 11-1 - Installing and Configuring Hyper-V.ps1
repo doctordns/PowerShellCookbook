@@ -18,7 +18,7 @@ Invoke-Command -ComputerName HV1, HV2 -ScriptBlock $Sb
 # 2. Reboot the servers to complete the installation
 
 Restart-Computer -ComputerName HV1, HV2 -Force -Wait -For -PowerShell
-3. Create and set the location for VMs and VHDs on HV1 and HV2
+# 3. Create and set the location for VMs and VHDs on HV1 and HV2
 #  then view results
 $Sb = {
     New-Item -Path H:\Vm -ItemType Directory -Force |
