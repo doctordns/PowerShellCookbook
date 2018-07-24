@@ -1,4 +1,4 @@
-﻿# recipe 13-3 - Secure Hyper-V host
+﻿# Recipe 13-3 - Secure Hyper-V host
 # Run on HV1
 
 # 1. Setup Hyper-V VM groups
@@ -11,7 +11,7 @@ $HVServers        = 'Book - HV1',
 
 # 3. Add members to the VM group Storage, HVServers
 Foreach ($HVS in $HVServers) {
-    $VM = Get-VM -Name $HVS 
+    $VM = Get-VM -Name $HVS
     Add-VMGroupMember -Name HVServers -VM $VM
 }
 
