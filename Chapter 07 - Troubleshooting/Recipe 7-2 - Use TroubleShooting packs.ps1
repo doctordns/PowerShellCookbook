@@ -16,7 +16,7 @@ $FTHT = @{
    Wrap     = $true
    AutoSize  = $true
 }
-$TSPacks | Format-Table
+$TSPacks | Format-Table @FTHT
 
 # 3. Get a troubleshooting pack
 $TsPack = $TSPacks | Where-Object id -eq 'WindowsUpdateDiagnostic'
@@ -27,7 +27,7 @@ $TSPack.RootCauses
 # 5. And look at the solutions to these issues
 $TSPack.RootCauses.Resolutions
 
-# 6. Run this troubleshooting pack 
+# 6. Run this troubleshooting pack
 #    (answering questions from the command line)
 $TsPack | Invoke-TroubleshootingPack
 
