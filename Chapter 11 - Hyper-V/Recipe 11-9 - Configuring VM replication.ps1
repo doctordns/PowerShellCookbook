@@ -15,7 +15,7 @@ Restart-Computer -ComputerName HC2 -Force
 # 2. Once both systems are restarted, logon back to HV1,
 #    set up HV2 as a replication server
 $VMRHT = @{
-   ReplicationEnabled              = $true `
+   ReplicationEnabled              = $true
    AllowedAuthenticationType       = 'Kerberos'
    KerberosAuthenticationPort      = 42000
    DefaultStorageLocation          = 'C:\Replicas'
@@ -56,7 +56,7 @@ Measure-VMReplication -ComputerName HV1
 # 9. Test VM1 failover to HV2
 $sb = {
   $VM1Test = Start-VMFailover -AsTest -VMName VM1 Confirm:$false
-  Start-VM $VM1test 
+  Start-VM $VM1test
 }
 Invoke-Command -ComputerName HV2 -ScriptBlock $sb
 

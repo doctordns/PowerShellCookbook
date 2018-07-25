@@ -30,7 +30,7 @@ Set-VMHost @VMHT1
 VMHT2 = @{
     VirtualMachineMigrationPerformanceOption = 'Compression'
     ComputerName                             = 'HV1, HV2'
-}    
+}
 Set-VMHost @VMHT2
 
 # 8. Move the VM to HV2
