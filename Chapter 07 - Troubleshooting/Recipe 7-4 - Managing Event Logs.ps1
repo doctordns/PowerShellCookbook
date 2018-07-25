@@ -1,8 +1,5 @@
 ﻿#  Recipe 8-4 Search Event Logs for specific events.
 
-# # Recipe 8-4 - Search Event logs
-
-
 # 1. Get core event logs
 Get-EventLog -LogName *
 
@@ -13,40 +10,40 @@ Get-EventLog -LogName * -ComputerName DC1
 Clear-EventLog -LogName Application -ComputerName DC1
 
 # 4. Look At the types of events on SRV1
-Get-EventLog -LogName application | 
-    Group-Object -property EntryType | 
+Get-EventLog -LogName application |
+    Group-Object -property EntryType |
         Format-Table -Property Name, Count
 
 # 5 Examine which area created the events in the application log:
 Get-EventLog -LogName System |
-    Group-Object -Property Source | 
+    Group-Object -Property Source |
         Sort-Object -Property Count -Descending |
-            Select -First 10 |
+            Select=Object -First 10 |
                 Format-Table -Property name, count
 
 # 6. Examine ALL local event logs
-$LocEventLogs = Get-WinEvent -ListLog * 
+$LocEventLogs = Get-WinEvent -ListLog *
 $LocEventLogs.count
-$LocEventLogs | 
+$LocEventLogs |
     Sort-Object -Property RecordCount -Descending |
         Select-Object -First 10
 
 # 7. Examine ALL event logs on DC1
 $RemEventLogs = Get-WinEvent -ListLog * -ComputerName DC1
 $RemEventLogs.count
-$RemEventLogs | 
+$RemEventLogs |
     Sort-Object -Property RecordCount -Descending |
         Select-Object -First 10
 
 # 8. Look at New logs - Windows Update - what updates have been found
-$Updates = Get-WinEvent -LogName 'Microsoft-Windows-WindowsUpdateClient/Operational' |
+$LN = 'Microsoft-Windows-WindowsUpdateClient/Operational'
+$Updates = Get-WinEvent -LogName $LN |
     Where-Object ID  -EQ 41
 $out = Foreach ($Update in $Updates) {
     $ht = @{}
     $ht.Time = $Update.TimeCreated
-    $ht.update = ($Update.Properties | Select -First 1).Value 
+    $ht.update = ($Update.Properties | Select-Object -First 1).Value
     New-Object -TypeName PSObject -Property $HT }
-$out | 
-    Sort-Object -Property TimeCreated | 
+$out |
+    Sort-Object -Property TimeCreated |
         Format-Table -Wrap
-          
