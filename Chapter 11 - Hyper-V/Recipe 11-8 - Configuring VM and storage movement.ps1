@@ -1,42 +1,58 @@
-﻿# Recipe 11-6 - Implementing nested Hyper-V
+﻿# Recipe 11-8 - Configuring VM and storage movement
 
-#  1. Stop VM1 VM:
-Stop-VM -VMName VM1
-Get-VM -VMname VM1
+# .1 View the VM1 VM on HV1 and verify that it is turned off and not saved
+Get-VM -Name VM1 -Computer HV1
 
-# 2. Change the VM's processor to support virtualization:
-Set-VMProcessor -VMName VM1 `
-                -ExposeVirtualizationExtensions $true
-Get-VMProcessor -VMName VM1 |
-    Format-Table -Property Name, Count,
-                           ExposeVirtualizationExtensions
+# 2. Get the VM configuration location and VHD details:
+Write-Output -InputObject (Get-VM -Name vm1).ConfigurationLocation
+Get-VMHardDiskDrive -VMName VM1
 
-# 3. Start the VM1 VM:
-Start-VM -VMName VM1
-Wait-VM -VMName VM1 -For Heartbeat
-Get-VM -VMName VM1
+# 3. Move the VM's storage to the C: drive:
+Move-VMStorage -Name VM1 -DestinationStoragePath C:\VM1
 
-# 4. Add Hyper-V into VM1:
-$user = 'VM1\Administrator'
-$pass = ConvertTo-SecureString -String 'Pa$$w0rd' `
-                               -AsPlainText -Force
-$cred = New-Object `
-           -TypeName System.Management.Automation.PSCredential `
-           -ArgumentList $user,$Pass
-Invoke-Command -VMName VM1 `
-               -ScriptBlock {Install-WindowsFeature `
-                             -Name Hyper-V `
-                             -IncludeManagementTools} `
-               -Credential $cred
+# 4. View the configuration details after moving the VM's storage:
+Write-Output -InputObject (Get-VM -Name VM1).ConfigurationLocation
+Get-VMHardDiskDrive -VMName VM1
 
-# 5. Restart the VM to finish adding Hyper-V:
-Stop-VM -VMName VM1
-Start-VM -VMName VM1
-Wait-VM -VMName VM1 -For IPAddress
-Get-VM -VMName VM1
+# 5. Get the VM details for VMs from HV2:
+Get-VM -ComputerName HV2
 
-# 6. Create a nested VM:
-$sb = {
-        $VMname = 'Nested11'
-        New-VM -Name $VMname -MemoryStartupBytes 1GB}
-Invoke-Command -VMName VM1 -ScriptBlock $sb
+# 6. Enable VM migration from both HV1 and HV2:
+Enable-VMMigration -ComputerName HV1, HV2
+
+# 7. Configure VM Migration on both hosts:
+Set-VMHost -UseAnyNetworkForMigration $true -ComputerName HV1, HV2
+$VMHT1 = @{
+    VirtualMachineMigrationAuthenticationType =  'Kerberos'
+    ComputerName                              =  'HV1, HV2'
+}
+Set-VMHost @VMHT1
+VMHT2 = @{
+    VirtualMachineMigrationPerformanceOption = 'Compression'
+    ComputerName                             = 'HV1, HV2'
+}    
+Set-VMHost @VMHT2
+
+# 8. Move the VM to HV2:
+$start = Get-Date
+$VMHT = @{
+    Name            = 'VM1'
+    ComputerName    = 'HV1.reskit.org'
+    DestinationHost = 'HV2.reskit.org'
+    IncludeStorage  =  $true
+    DestinationStoragePath = 'C:\VM1'
+}
+Move-VM @VMHT
+$finish = Get-Date
+
+# 9. Display the time taken to migrate:
+$OS = "Migration took: [{0:n2}] minutes"
+Write-Output ($os-f ($($finish-$start).totalminutes))
+
+# 10. Check which VMs on are on HV1 and HV2:
+Get-VM -ComputerName HV1
+Get-VM -ComputerName HV2
+
+# 11. Look at the details of the moved VM:
+Write-Output ((Get-VM -Name VM1 -Computer HV2).ConfigurationLocation)
+Get-VMHardDiskDrive -VMName VM1 -Computer HV2
