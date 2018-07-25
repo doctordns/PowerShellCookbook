@@ -5,7 +5,7 @@ $RKAn = 'Reskit\Administrator'
 $PS   = 'Pa$$w0rd'
 $RKP  = ConvertTo-SecureString -String $PS -AsPlainText -Force
 $T = 'System.Management.Automation.PSCredential'
-$RKCred = New-Object -TypeName $T -ArgumentList $RKAn,$RKP 
+$RKCred = New-Object -TypeName $T -ArgumentList $RKAn,$RKP
 
 # 2. Display the details of the psdirect VM:
 Get-VM -Name psdirect
