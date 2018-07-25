@@ -1,4 +1,4 @@
-﻿# Recipe 13-3 - Secure Hyper-V host
+﻿# Recipe 13-3 - Securing Hyper-V host
 # Run on HV1
 
 # 1. Setup Hyper-V VM groups
