@@ -1,12 +1,11 @@
 # Recipe 11-2 - Using PS Direct with Hyper-V
 
 # 1. Create a credential object for ReskitAdministrator:
-$RKAdmin = 'ReskitAdministrator'
-$PS      = 'Pa$$Word'
-$RKPass = ConvertTo-SecureString -String $PS -AsPlainText -Force
-$TN = System.Management.Automation.PSCredential
-$AL - "$RKAdmin, $RKPass"
-$RKCred = New-Object -TypeName $TN -ArgumentList $AL
+$RKAn = 'Reskit\Administrator'
+$PS   = 'Pa$$w0rd'
+$RKP  = ConvertTo-SecureString -String $PS -AsPlainText -Force
+$T = 'System.Management.Automation.PSCredential'
+$RKCred = New-Object -TypeName $T -ArgumentList $RKAn,$RKP 
 
 # 2. Display the details of the psdirect VM:
 Get-VM -Name psdirect
