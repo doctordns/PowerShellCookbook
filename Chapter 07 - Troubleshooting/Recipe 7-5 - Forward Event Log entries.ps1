@@ -10,9 +10,11 @@ Add-ADGroupMember -Identity $ECGName -Members 'DC1$'
 Get-ADGroupMember -Identity $ECGName
 
 # 3. Create a new GPO on DC1 to configure event collection
-$sb = {
 $GPOName = 'Event Collection'
-$ECGName = 'Event Collection Group'
+$sb = {
+    $GPOName = 'Event Collection'
+    $ECGName = 'Event Collection Group'
+}
 $gpo  = New-GPO -Name $GPOName
 $link = New-GPLink -Name $GPOName -Target "DC=Reskit,DC=Org"
 $GPHT1 = @{
@@ -32,7 +34,7 @@ Invoke-Command -ComputerName DC1 -ScriptBlock $sb
 
 # 4. Set GPO Permissions:
 Set-GPPermission -Name $GPOName `
-                 -TargetName "Authenticated Users" 
+                 -TargetName "Authenticated Users"
                  -TargetType Group `
                  -PermissionLevel None
 
@@ -46,7 +48,7 @@ Set-GPRegistryValue -Name "Event Collector" -Key $WinRMKey `
 -ValueName "IPv6Filter" -Type STRING -Value "*"
 
 # 4. Enable and configure Windows Event Collector on the collector system.
-echo y | wecutil qc
+Write-Output -InputObject 'y' | wecutil qc
 
 # 5. Create the XML file for the subscription, and save the file.
 # Following is an example of the subscription.xml file used in this example:
