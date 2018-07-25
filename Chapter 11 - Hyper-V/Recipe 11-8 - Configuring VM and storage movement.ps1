@@ -5,9 +5,11 @@ Stop-VM -VMName VM1
 Get-VM -VMname VM1
 
 # 2. Change the VM's processor to support virtualization:
-Set-VMProcessor -VMName VM1 ExposeVirtualizationExtensions $true
+Set-VMProcessor -VMName VM1 `
+                -ExposeVirtualizationExtensions $true
 Get-VMProcessor -VMName VM1 |
-    Format-Table -Property Name, Count,ExposeVirtualizationExtensions
+    Format-Table -Property Name, Count,
+                           ExposeVirtualizationExtensions
 
 # 3. Start the VM1 VM:
 Start-VM -VMName VM1
