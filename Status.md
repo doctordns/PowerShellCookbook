@@ -7,6 +7,7 @@ Finished porting Ch 12 (Azure)
 ## Date 25-7-2016
 
 Finished Porting Ch 11 - Hyper-V
+Finished Porting Ch 7
 
 ## Date 22.7.2018
 
