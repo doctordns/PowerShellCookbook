@@ -1,36 +1,43 @@
 ﻿#  Recipe 8-2 troubleshooting packs
 
 # 1. Get Trobleshooting packs
-$TSPackfolders = Get-ChildItem -Path C:\Windows\diagnostics\system -Directory
-$TSPacks = Foreach ($TSPack in $TSPackfolders) {
+$Path = 'C:\Windows\diagnostics\syste'
+$TSPackfolders = Get-ChildItem -Path $Path -Directory
+$TSPacks =
+    Foreach ($TSPack in $TSPackfolders) {
               Get-TroubleshootingPack -Path $TSPack.FullName}
 
 # 2. Display the packs
-$TSPacks | Format-Table -Property Name, Version,
-                                  MinimumVersion, 
-                                  Description `
-                         -Wrap -AutoSize                            
+$FTHT = @{
+   Property = 'Name,
+               Version,
+               MinimumVersion,
+               Description'
+   Wrap     = $true
+   AutoSize  = $true
+}
+$TSPacks | Format-Table
 
-                            
 # 3. Get a troubleshooting pack
-$TsPack = $TSPacks | where id -eq 'WindowsUpdateDiagnostic'
+$TsPack = $TSPacks | Where-Object id -eq 'WindowsUpdateDiagnostic'
 
-# 4. look at the problems this pack looks for:
+# 4. look at the problems this pack looks for
 $TSPack.RootCauses
 
-# 5. And look at the solutions to these issues:
+# 5. And look at the solutions to these issues
 $TSPack.RootCauses.Resolutions
 
-# 6. Run this troubleshooting pack (answering questions from the command line):
+# 6. Run this troubleshooting pack 
+#    (answering questions from the command line)
 $TsPack | Invoke-TroubleshootingPack
 
 # 7. Use get-TroubleshootingPack to create an answer file:
 Get-TroubleshootingPack -Path $TSPack.path `
-              -AnswerFile c:\Answers.xml 
+              -AnswerFile c:\Answers.xml
 
 # 8. Display the XML:
-Get-Content -Path C:\Answers.xml 
+Get-Content -Path C:\Answers.xml
 
-# 9. Run WU pack using answer file:
-$TsPack | 
-    Invoke-TroubleshootingPack -AnswerFile C:\Answers.xml -unattend 
+# 9. Run WU pack using answer file
+$TsPack |
+    Invoke-TroubleshootingPack -AnswerFile C:\Answers.xml -unattend
