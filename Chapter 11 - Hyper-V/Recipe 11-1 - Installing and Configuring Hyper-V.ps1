@@ -30,7 +30,8 @@ $Sb = {
     Get-ChildItem -Path H:\Vm }
 Invoke-Command -ComputerName HV1, HV2 -ScriptBlock $Sb
 
-# 4. Set default paths for Hyper-V VM hard disks and VM configuration information
+# 4. Set default paths for Hyper-V VM hard disks and 
+#    VM configuration information
 $VMs = 'H:\Vm\Vhds'
 Set-VMHost -ComputerName HV1, HV2 -VirtualHardDiskPath $VMs
 $VHDs = 'H:\Vm\VMs\Managing Hyper-V'
@@ -48,7 +49,11 @@ Set-VMHost -CimSession HV1, HV2 -ResourceMeteringSaveInterval
 Write-Host -Objject $RMInterval
 
 # 8. Review key VMHost settings:
+$VMHT = @{Property = 'Name, MemoryCapacity,
+                          Virtual * Path,
+                          NumaSpanningEnabled,
+                          EnableEnhancedSessionMode,
+                          ResourceMeteringSaveInterval'
+}
 Get-VMHost -ComputerName HV1, HV2 |
-    Format-List -Property Name, MemoryCapacity, Virtual*Path,
-                          NumaSpanningEnabled,EnableEnhancedSessionMode,
-                          ResourceMeteringSaveInterval
+    Format-List @VMHT
