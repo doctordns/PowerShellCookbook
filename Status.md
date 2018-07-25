@@ -4,9 +4,13 @@
 
 Finished porting Ch 12 (Azure)
 
+## Date 25-7-2016
+
+Finished Porting Ch 11 - Hyper-V
+
 ## Date 22.7.2018
 
-Finished porting Ch 5(Backup)
+Finished porting Ch 5 (Backup)
 Started porting Ch 12 (Azure)
 Started porting troubleshooting chapter
 

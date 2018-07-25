@@ -21,7 +21,7 @@ Read the book for more details on pre-requisites for each chapter.
 - Chapter 8  - Managing Windows Networking _(in progress)_
 - Chapter 9  - Managing Network Shares  _(in progress)_
 - Chapter 10 - Managing Internet Information Server
-- Chapter 11 - Managing Hyper-V _(in progress)_
+- Chapter 11 - Managing Hyper-V
 - Chapter 12 - Managing Azure  
 - Chapter 13 - Using Desired State Configuration _(to be done)_
 
@@ -47,4 +47,3 @@ Chapter 13 - Using Desired State Configuration
 Chapter 7  - Troubleshooting Windows  
 Chapter 8  - Managing Windows Networking  
 Chapter 9  - Managing Network Shares  
-Chapter 11 - Managing Hyper-V
