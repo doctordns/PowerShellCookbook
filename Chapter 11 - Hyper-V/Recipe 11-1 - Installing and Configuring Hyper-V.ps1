@@ -32,9 +32,9 @@ Invoke-Command -ComputerName HV1, HV2 -ScriptBlock $Sb
 
 # 4. Set default paths for Hyper-V VM hard disks and
 #    VM configuration information
-$VMs = 'H:\Vm\Vhds'
-Set-VMHost -ComputerName HV1, HV2 -VirtualHardDiskPath $VMs
+$VMs  = 'H:\Vm\Vhds'
 $VHDs = 'H:\Vm\VMs\Managing Hyper-V'
+Set-VMHost -ComputerName HV1, HV2 -VirtualHardDiskPath $VMs
 Set-VMHost -ComputerName HV1, HV2 -VirtualMachinePath $VHDs
 
 # 5. Setup NUMA spanning
