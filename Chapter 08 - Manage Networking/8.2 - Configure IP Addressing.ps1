@@ -2,9 +2,9 @@
 
 # 1 Get existing IP address information
 $IPType = "IPv4"
-$Adapter = Get-NetAdapter | 
+$Adapter = Get-NetAdapter |
     Where-Object Status -eq "up"
-$Interface = $Adapter | 
+$Interface = $Adapter |
     Get-NetIPInterface -AddressFamily $IPType
 $IfIndex = $Interface.ifIndex
 $IfAlias = $Interface.Interfacealias
@@ -22,7 +22,7 @@ New-NetIPAddress @IPHT
 
 # 3. Set DNS Server details
 $CAHT = @{
-    InterfaceIndex = 3 
+    InterfaceIndex = 3
     ServerAddresses= '10.10.10.10'
 }
 
@@ -30,6 +30,6 @@ Set-DnsClientServerAddress  @CAHT
 
 # 4. Test new configuration
 Get-NetIPAddress -InterfaceIndex $IfIndex
-Test-NetConnection -ComputerName DC1 
+Test-NetConnection -ComputerName DC1
 Resolve-DnsName -Name dc2.reskit.org -Server DC1 |
     Where-Object Type -eq 'A'

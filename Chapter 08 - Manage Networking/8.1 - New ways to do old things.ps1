@@ -70,7 +70,7 @@ Clear-DnsClientCache
 
 
 # 5. DNS Lookups
-Nslookup foo.bar 
+Nslookup foo.bar
 Resolve-DnsName -Name Foo.bar -Type ALL
 #
 
