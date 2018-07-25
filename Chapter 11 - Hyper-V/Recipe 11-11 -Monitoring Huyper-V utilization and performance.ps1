@@ -1,7 +1,7 @@
 ﻿# Recipe 11-11 -Monitoring Huyper-V utilization and performance
 
 # 1. Discover how many counter sets exist (on HV1)
-$TotalCounters = Get-Counter -ListSet * | 
+$TotalCounters = Get-Counter -ListSet * |
     Measure-Object
 Write-Output ("Total Counter sets : [{0}]" -f $TotalCounters.Count)
 
@@ -12,7 +12,7 @@ Write-Output ("Hyper-V Related Counter Sets : [{0}]" -F $Counters.Count)
 # 3. View counter set details for Hyper-V:
 Get-Counter -ListSet * |
     Where-Object CounterSetName -match 'hyper'|
-        Sort -Property CounterSetName |
+        Sort-Object -Property CounterSetName |
             Format-Table -Property CounterSetName, Description
 
 # 4. Determine how many individual counters exist in the Root Virtual

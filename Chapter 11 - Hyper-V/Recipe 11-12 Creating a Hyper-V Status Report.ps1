@@ -42,7 +42,7 @@ $ReportHT.HostMemoryGB = $HostMemory
 
 # 7. Add the memory allocated to VMs:
 $Sum = 0
-Get-VM | foreach {$sum += $_.MemoryAssigned + $Total}
+Get-VM | Foreach-Object {$sum += $_.MemoryAssigned + $Total}
 $Sum = [float] ( "{0:N2}" -f ($Sum/1gb) )
 $ReportHT.AllocatedMemoryGB = $Sum
 
