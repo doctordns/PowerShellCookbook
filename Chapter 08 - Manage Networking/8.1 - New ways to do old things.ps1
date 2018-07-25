@@ -1,4 +1,4 @@
-﻿# Recipe 10-1
+﻿# Recipe 8-1
 # New ways to do old things
 
 # 1. Ipconfig vs new cmdlets
@@ -38,7 +38,7 @@ Test-NetConnection SRV2 -CommonTCPPort SMB
 net use X:  \\Srv1\c$
 
 # The new way using  an SMB  cmdlet
-New-SMBMapping -LocalPath 'Y:' -RemotePath \\Srv1\c$ 
+New-SMBMapping -LocalPath 'Y:' -RemotePath \\Srv1\c$
 
 # See what is shared the old way:
 net use
@@ -52,7 +52,7 @@ Get-SMBMapping
 net share foo=c:\foo
 # and the new way
 New-SmbShare -Path C:\foo -Name Foo2
-# And see what has been shared the old way 
+# And see what has been shared the old way
 net share
 # and the new way
 Get-SmbShare
