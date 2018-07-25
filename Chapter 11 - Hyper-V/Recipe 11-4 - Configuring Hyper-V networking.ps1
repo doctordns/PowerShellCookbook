@@ -1,4 +1,4 @@
-﻿# Recipe 13-4 - Configure Hyper-V Networking
+﻿# Recipe 11-4 - Configure Hyper-V Networking
 # Run on HV1
 
 # 1. Get NIC details and any IP Address from the VM1 VM
