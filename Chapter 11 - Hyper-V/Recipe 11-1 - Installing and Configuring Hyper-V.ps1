@@ -30,7 +30,7 @@ $Sb = {
     Get-ChildItem -Path H:\Vm }
 Invoke-Command -ComputerName HV1, HV2 -ScriptBlock $Sb
 
-# 4. Set default paths for Hyper-V VM hard disks and 
+# 4. Set default paths for Hyper-V VM hard disks and
 #    VM configuration information
 $VMs = 'H:\Vm\Vhds'
 Set-VMHost -ComputerName HV1, HV2 -VirtualHardDiskPath $VMs

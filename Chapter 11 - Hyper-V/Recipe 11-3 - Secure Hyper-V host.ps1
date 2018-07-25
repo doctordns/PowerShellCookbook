@@ -63,7 +63,7 @@ Get-VMProcessor -VM (Get-VMGroup HvServers).VMMembers |
 
 
 
-<#  clean up
+#  A sub-script to help clean up
 Remove-VMGroupMember -Name VMs -VMGroupMember (Get-Vmgroup HVservers)
 
 Foreach ($SM in $hvservers) {
@@ -71,7 +71,7 @@ Foreach ($SM in $hvservers) {
     Remove-VMGroupMember -Name HVServers -VM $Vm
 }
 Get-VMGroup | remove-vmgroup -force
-Get-VMgroup|FT
+Get-VMgroup|ForMat-Table
 #>
 
 
