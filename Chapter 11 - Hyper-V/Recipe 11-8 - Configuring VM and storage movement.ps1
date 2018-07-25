@@ -33,7 +33,7 @@ VMHT2 = @{
 }    
 Set-VMHost @VMHT2
 
-# 8. Move the VM to HV2:
+# 8. Move the VM to HV2
 $start = Get-Date
 $VMHT = @{
     Name            = 'VM1'
@@ -45,14 +45,14 @@ $VMHT = @{
 Move-VM @VMHT
 $finish = Get-Date
 
-# 9. Display the time taken to migrate:
+# 9. Display the time taken to migrate
 $OS = "Migration took: [{0:n2}] minutes"
 Write-Output ($os-f ($($finish-$start).totalminutes))
 
-# 10. Check which VMs on are on HV1 and HV2:
+# 10. Check which VMs on are on HV1 and HV2
 Get-VM -ComputerName HV1
 Get-VM -ComputerName HV2
 
-# 11. Look at the details of the moved VM:
+# 11. Look at the details of the moved VM
 Write-Output ((Get-VM -Name VM1 -Computer HV2).ConfigurationLocation)
 Get-VMHardDiskDrive -VMName VM1 -Computer HV2
