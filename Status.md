@@ -4,7 +4,11 @@
 
 Finished porting Ch 12 (Azure)
 
-## Date 25-7-2016
+## Date 26,7,2018
+
+Fix file names in Ch 8
+
+## Date 25.7.2016
 
 Finished Porting Ch 11 - Hyper-V
 Finished Porting Ch 7
