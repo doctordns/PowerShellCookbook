@@ -23,14 +23,24 @@ Read the book for more details on pre-requisites for each chapter.
 - Chapter 10 - Managing Internet Information Server
 - Chapter 11 - Managing Hyper-V
 - Chapter 12 - Managing Azure  
-- Chapter 13 - Using Desired State Configuration _(to be done)_
+- Chapter 13 - Using Desired State Configuration _(in progress)_
 
 Each chapter has a separate folder in this repository, and inside each chapter.
 Additionally, there is a **Readme.MD** file that describes the recipes in the chapter along with the PowerShell scripts making up each recipe.
 
 ## Note
 
-All recipes are 'as is' - if they work, great, if not, oh well. Worth what you paid for it! This repo and the documentation inside is a work in progress. It's not yet complete.
+All recipes are 'as is' - if they work, great, if not, oh well. Worth what you paid for it! This repo and the documentation inside is a work in progress.
+
+Many of these scripts vary from what is published in the book.
+There are a couple of reasons for this.
+In the book, many of the scripts used the back tick character to create multi-line commands.
+Turns out that didn't work very well - they are hard to read.
+And in the process of finalising the book, some changes were made that broke the scripts.
+
+With that in mind, I've tried to fix these where I have found an issue. 
+Additionally, the scripts have been reformatted to fit inside a 72-character line width.
+To fit within that limit, I've made liberal use of hash tables and splatting.
 
 ## Feedback
 
@@ -38,10 +48,7 @@ Any comments: email Thomas Lee at DoctorDNS@Gmail.Com.
 
 ## To Do List
 
-### Scripts still to be ported over
-
-Chapter 13 - Using Desired State Configuration  
-
 ### Conversion and update in progress
 
-Chapter 9  - Managing Network Shares  
+Chapter 9  - Managing Network Shares
+Chapter 13 - Using Desired State Configuration  
