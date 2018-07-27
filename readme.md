@@ -38,7 +38,7 @@ In the book, many of the scripts used the back tick character to create multi-li
 Turns out that didn't work very well - they are hard to read.
 And in the process of finalising the book, some changes were made that broke the scripts.
 
-With that in mind, I've tried to fix these where I have found an issue. 
+With that in mind, I've tried to fix these where I have found an issue.
 Additionally, the scripts have been reformatted to fit inside a 72-character line width.
 To fit within that limit, I've made liberal use of hash tables and splatting.
 
