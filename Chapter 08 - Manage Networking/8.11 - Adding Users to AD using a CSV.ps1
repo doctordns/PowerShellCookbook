@@ -6,9 +6,10 @@ FN, Initials, Lastname, UserPrincipalName, Alias, Description, PW
 S, K, masterley, skm, Sylvester, 'Data Team', christmas
 C, A, Smyth, rmlt, Charlie, 'Team Administrator,christmas
 "@
+$CSV | Out-File -FilePath .\C:\Foo\Users.csv
 
 # 1.  Import a CSV file containing the details of the users you want to add to AD:
-$Users = Import-CSV -Path C:\FooUsers.Csv
+$Users = Import-CSV -Path C:\Foo\Users.Csv
 
 # 2. Add the users using the CSV
 $SS = ConvertTo-SecureString -AsPlainText $user.PW -Force
