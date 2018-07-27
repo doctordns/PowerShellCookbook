@@ -18,7 +18,7 @@ Read the book for more details on pre-requisites for each chapter.
 - Chapter 5  - Managing Windows Server Backup  
 - Chapter 6  - Managing Performance
 - Chapter 7  - Troubleshooting Windows
-- Chapter 8  - Managing Windows Networking _(in progress)_
+- Chapter 8  - Managing Windows Networking
 - Chapter 9  - Managing Network Shares  _(in progress)_
 - Chapter 10 - Managing Internet Information Server
 - Chapter 11 - Managing Hyper-V
@@ -44,5 +44,4 @@ Chapter 13 - Using Desired State Configuration
 
 ### Conversion and update in progress
 
-Chapter 8  - Managing Windows Networking  
 Chapter 9  - Managing Network Shares  

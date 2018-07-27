@@ -1,10 +1,14 @@
 # This file describes changes of this repository
 
-## Date 25.7.2019
+## Date 27.7.12
+
+Finished porting Ch 9 (Manage Networking)
+
+## Date 26.7.2019
 
 Finished porting Ch 12 (Azure)
 
-## Date 24.7.2018
+## Date 25.7.2018
 
 Fix file names in Ch 8
 
