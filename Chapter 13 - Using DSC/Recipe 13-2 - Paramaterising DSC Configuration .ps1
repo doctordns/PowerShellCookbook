@@ -22,17 +22,18 @@ Node $NodeName
  }
 
 # 3. Ensure an empty DSC folder exists, then create MOF file
-$NIHT =@{
+$NIHT = @{
     Path        = 'C:\DSC '
     ItemType    = 'Directory'
     ErrorAction = 'SilentlyContinue'
+}    
 New-Item  @NIHT| Out-Null
 Get-ChildItem -Path C:\DSC | Remove-Item -Force | Out-Null
 
 # 4. Clear any existing Configuration documents on SRV2
 $RIHT =@{
-Path         = '\\SRV2\c$\Windows\System32\configuration\*.mof'
-ErrorAction -  'SilentlyContinue'
+Path        = '\\SRV2\c$\Windows\System32\configuration\*.mof'
+ErrorAction = 'SilentlyContinue'
 }
 Remove-Item @RIHT
 
