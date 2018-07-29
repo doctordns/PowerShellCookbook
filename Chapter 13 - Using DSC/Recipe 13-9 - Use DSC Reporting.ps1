@@ -1,9 +1,10 @@
 ﻿#  Recipe 16-9 DSC Reporting
+#  Bonus recipe - not tested - Caveat Emptor
+# 
 
 
 #    Recipe 16-8  Partial Configuration
 #
-
 
 # 1. Create a meta configuration to make SRV2 pull from SRV1 and use the report server
 
