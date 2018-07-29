@@ -1,28 +1,9 @@
 ﻿#  Recipe 16-2  -   Paramaterize DSC Configuratin
 
-# 0. Create initial documents:
-
-$p1 = @"
-<!DOCTYPE html>
-<html>
-<head><title>Main Page - ReskitApp Application</title></head>
-<body><p><center>
-<b>HOME PAGE FOR RESKITAPP APPLICATION</b></p>
-"@
-$p2 = @"
-This is the root page of the RESKITAPP application<b>
-Pushed via DSC</p><br><hr>
-<a href="http://srv2/reskitapp/page2.htm">
-Click to View Page 2</a>
-</center>
-<br><hr></body></html>
-"@
-
-
-# 1. Check status of DNS on SRV2
+# 1. Check status of DNS on SRV2 - check to see if it is installed or not
 Get-WindowsFeature DNS -ComputerName SRV2
 
-# 2. Create configuration
+# 2. Create paramaterized configuration
 Configuration ProvisionServices
 {
  param (
@@ -50,9 +31,12 @@ Remove-Item '\\SRV2\c$\Windows\System32\configuration\*.mof' `
             -ErrorAction SilentlyContinue
 
 # 5. Now provision DNS on SRV2
-ProvisionServices -OutputPath  C:\DSC `
-                  -NodeName    SRV2 `
-                  -FeatureName DNS
+$SHT = @{
+OutputPath  = 'C:\DSC'
+NodeName    = 'SRV2'
+FeatureName = 'DNS'
+}
+ProvisionServices @SHT
 
 # 6. View MOF File
 Get-Content -Path C:\DSC\SRV2.mof
