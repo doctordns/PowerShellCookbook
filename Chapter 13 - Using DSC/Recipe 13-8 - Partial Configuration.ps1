@@ -12,10 +12,12 @@ Remove-Item C:\inetpub\wwwroot\PSDSCPullServer -rec
 
 # 1. Create a Self-Signed Certificate On SRV1, copy to root, and display
 #    And put it into the MY certs, then copy to Root
-Get-ChildItem Cert:LocalMachine\My | where Subject -eq 'CN=SRV1' |
-    Remove-Item -Force
-Get-ChildItem Cert:LocalMachine\root | where Subject -eq 'CN=SRV1' |
-    Remove-Item -Force
+Get-ChildItem Cert:LocalMachine\My | 
+    Where-Object Subject -eq 'CN=SRV1' |
+        Remove-Item -Force
+Get-ChildItem Cert:LocalMachine\root |
+    Where-Object Subject -eq 'CN=SRV1' |
+        Remove-Item -Force
 $DscCert = New-SelfSignedCertificate `
                -CertStoreLocation 'CERT:\LocalMachine\MY' `
                -DnsName 'SRV1' 
@@ -30,7 +32,7 @@ $DscCert
 $Sb = {
   Param ($Rootcert) 
   Get-ChildItem Cert:LocalMachine\Root | 
-      Where Subject -eq 'CN=SRV1' |  Remove-Item -Force
+      Where-Object Subject -eq 'CN=SRV1' |  Remove-Item -Force
   $C = 'System.Security.Cryptography.X509Certificates.X509Store'
   $Store = New-Object -TypeName $C `
                       -ArgumentList 'Root','LocalMachine'
@@ -42,7 +44,7 @@ Invoke-Command -ScriptBlock $Sb -ComputerName SRV2 -Verbose -ArgumentList $DscCe
 
 # 3. Check Cert on SRV2
 Invoke-Command -ScriptBlock {Get-ChildItem Cert:\LocalMachine\root | 
-    Where Subject -Match 'SRV1'} -ComputerName SRV2
+    Where-Object Subject -Match 'SRV1'} -ComputerName SRV2
 
 # 4. Check that xPsDesiredStateConfiguration module is installed on both 
 #    SRV1 and SRV2
@@ -62,7 +64,6 @@ Invoke-Command -ComputerName SRV2 `
 Configuration WebPullSrv1 {
 Param ([String] $CertThumbPrint)
 Import-DscResource -Module PSDesiredStateConfiguration
-Import-DscResource -Module xPSDesiredStateConfiguration
 
 $Regfile= Join-Path `
      -Path ‘C:\Program Files\WindowsPowerShell\DscService’ `
@@ -93,7 +94,7 @@ Node SRV1 {
     File RegistrationKeyFile {
        Ensure                = 'Present'
        Type                  = 'File'
-       DestinationPath       = 'C:\Program Files\WindowsPowerShell\DscService\RegistrationKeys.txt'
+       DestinationPath       = $Regfile
        Contents              = '5d79ee6e-0420-4c98-9cc3-9f696901a816'  }
   }
 }
