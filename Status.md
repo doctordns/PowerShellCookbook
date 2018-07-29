@@ -1,5 +1,11 @@
 # This file describes changes of this repository
 
+
+
+## Date 28.7.12
+
+Started porting DSC scripts (Ch 13)
+
 ## Date 27.7.12
 
 Finished porting Ch 9 (Manage Networking)
