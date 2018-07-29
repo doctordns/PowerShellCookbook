@@ -1,13 +1,12 @@
-﻿#    Recipe 16-8  Partial Configuration
-#
+﻿# Recipe 13-8  Partial Configuration
+# Run on SRV1
 
-# 0. Ensure state...
+# 0. Remove any earlier attempts here and bring state on SRV1 back to 'normal.
 Remove-WindowsFeature web-server -IncludeManagementTools 
-Remove-Item c:\DSCResource -force
+Remove-Item C:\DSCResource -Force
 Remove-Item C:\DSCConfiguration
-Remove-Item C:\dsc -force -rec
-Remove-Item C:\inetpub\wwwroot\PSDSCPullServer -rec
-
+Remove-Item C:\DSC  -Force -Recurse
+Remove-Item C:\inetpub\wwwroot\PSDSCPullServer -Recurse
 
 
 # 1. Create a Self-Signed Certificate On SRV1, copy to root, and display
@@ -18,9 +17,12 @@ Get-ChildItem Cert:LocalMachine\My |
 Get-ChildItem Cert:LocalMachine\root |
     Where-Object Subject -eq 'CN=SRV1' |
         Remove-Item -Force
-$DscCert = New-SelfSignedCertificate `
-               -CertStoreLocation 'CERT:\LocalMachine\MY' `
-               -DnsName 'SRV1' 
+$CHT = @{
+    CertStoreLocation = 'CERT:\LocalMachine\MY'
+    DnsName           = 'SRV1' 
+}
+$DscCert = New-SelfSignedCertificate @CHT
+# copy it to Root CA (make the cert 'trusted')       
 $C = 'System.Security.Cryptography.X509Certificates.X509Store'
 $Store = New-Object -TypeName $C -ArgumentList 'Root','LocalMachine'
 $Store.Open('ReadWrite')
@@ -32,15 +34,24 @@ $DscCert
 $Sb = {
   Param ($Rootcert) 
   Get-ChildItem Cert:LocalMachine\Root | 
-      Where-Object Subject -eq 'CN=SRV1' |  Remove-Item -Force
-  $C = 'System.Security.Cryptography.X509Certificates.X509Store'
-  $Store = New-Object -TypeName $C `
-                      -ArgumentList 'Root','LocalMachine'
+      Where-Object Subject -eq 'CN=SRV1' |
+          Remove-Item -Force
+  $NOHT  = @{         
+  Typename     = 'System.Security.Cryptography.X509Certificates.X509Store'
+  ArgumentList = ('Root','LocalMachine')
+  }
+  $Store = New-Object @NOHT
   $Store.Open('ReadWrite')
   $Store.Add($Rootcert)
-  $Store.Close()}
-
-Invoke-Command -ScriptBlock $Sb -ComputerName SRV2 -Verbose -ArgumentList $DscCert
+  $Store.Close()
+} # End script block
+$ICHT = @{
+ScriptBlock  = $Sb 
+ComputerName = 'SRV2 '
+Verbose      = $true
+ArgumentList = $DscCert
+}
+Invoke-Command @ICHT
 
 # 3. Check Cert on SRV2
 Invoke-Command -ScriptBlock {Get-ChildItem Cert:\LocalMachine\root | 
@@ -65,9 +76,8 @@ Configuration WebPullSrv1 {
 Param ([String] $CertThumbPrint)
 Import-DscResource -Module PSDesiredStateConfiguration
 
-$Regfile= Join-Path `
-     -Path ‘C:\Program Files\WindowsPowerShell\DscService’ `
-     -Childpath ‘RegistrationKeys.txt'
+$Regfile= 'C:\Program Files\WindowsPowerShell\DscService\'+
+          ‘RegistrationKeys.txt'
 Node SRV1 {
     File DSCConfig-Folder{
         DestinationPath   = 'C:\DSCConfiguration'
@@ -188,7 +198,8 @@ WindowsFeature TFTPClient
       Ensure   = 'Present'  }
     }
 }
-TFTPConfig -ConfigurationData $ConfigData -OutputPath 'C:\DSCConfiguration\' | Out-Null
+TFTPConfig -ConfigurationData $ConfigData -OutputPath 'C:\DSCConfiguration\'
+ | Out-Null
 Rename-Item  -Path "c:\DSCConfiguration\$Guid.mof" -newname 'TFTPConfig.Mof'
 
 # 14. Create Checksums for these two partial configurations
