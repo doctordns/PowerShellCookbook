@@ -1,4 +1,4 @@
-﻿# Recipe 16-3 - Get DSC resources
+﻿# Recipe 13-3 - Finding and installing DSC Resources
 
 # 1. Find available repositories
 Get-PSRepository
