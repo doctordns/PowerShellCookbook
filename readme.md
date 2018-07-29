@@ -9,6 +9,14 @@ The book has 13 chapters and each chapter has a number of recipes.
 Each recipe is planned to be included in this repository.
 Read the book for more details on pre-requisites for each chapter.
 
+The purpose of these scripts is two fold:
+First, these scripts are a companion for the book.
+Feel free to leverage the scripts - this repo makes it easier for you to avoid having to do a lot of retyping.
+Also, the scripts demonstrate techniques you can use and approaches to follow when you develop scripts.
+At the same time, there are some less than great practices which are employed to simplify the script.
+For example, storing things in the root folder of a server is probably not a great idea, but it's simpler than using a huge long path'
+If you use these scripts, please customise them for our own use.
+
 ## Index
 
 - Chapter 1  - What's New in PowerShell and Windows Server 2013
@@ -30,7 +38,8 @@ Additionally, there is a **Readme.MD** file that describes the recipes in the ch
 
 ## Note
 
-All recipes are 'as is' - if they work, great, if not, oh well. Worth what you paid for it! This repo and the documentation inside is a work in progress.
+All recipes are 'as is' - if they work, that is great.
+But if not, oh well.
 
 Many of these scripts vary from what is published in the book.
 There are a couple of reasons for this.
