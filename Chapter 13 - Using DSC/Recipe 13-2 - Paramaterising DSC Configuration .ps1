@@ -1,8 +1,5 @@
 ﻿#  Recipe 16-2  -   Paramaterize DSC Configuratin
 
-
-
-
 # 1. Check status of DNS on SRV2
 Get-WindowsFeature DNS -ComputerName SRV2
 
