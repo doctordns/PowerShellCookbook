@@ -1,14 +1,18 @@
 # This file describes changes of this repository
 
+## Date4 29.7.2018
+
+Finished porting Chapter 13.
+
 ## Date 28.7.12
 
 Started porting DSC scripts (Ch 13)
 
-## Date 27.7.12
+## Date 27.7.2018
 
 Finished porting Ch 9 (Manage Networking)
 
-## Date 26.7.2019
+## Date 26.7.2018
 
 Finished porting Ch 12 (Azure)
 

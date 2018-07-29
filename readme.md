@@ -23,7 +23,7 @@ Read the book for more details on pre-requisites for each chapter.
 - Chapter 10 - Managing Internet Information Server
 - Chapter 11 - Managing Hyper-V
 - Chapter 12 - Managing Azure  
-- Chapter 13 - Using Desired State Configuration _(in progress)_
+- Chapter 13 - Using Desired State Configuration
 
 Each chapter has a separate folder in this repository, and inside each chapter.
 Additionally, there is a **Readme.MD** file that describes the recipes in the chapter along with the PowerShell scripts making up each recipe.
@@ -51,4 +51,3 @@ Any comments: email Thomas Lee at DoctorDNS@Gmail.Com.
 ### Conversion and update in progress
 
 Chapter 9  - Managing Network Shares
-Chapter 13 - Using Desired State Configuration  
