@@ -1,7 +1,5 @@
 # This file describes changes of this repository
 
-
-
 ## Date 28.7.12
 
 Started porting DSC scripts (Ch 13)
