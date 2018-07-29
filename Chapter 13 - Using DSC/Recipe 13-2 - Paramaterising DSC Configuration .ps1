@@ -1,4 +1,4 @@
-﻿#  Recipe 16-2  -   Paramaterize DSC Configuratin
+﻿#  Recipe 13-2  -  Paramaterize DSC Configuratin
 
 # 1. Check status of DNS on SRV2
 Get-WindowsFeature DNS -ComputerName SRV2
@@ -22,18 +22,22 @@ Node $NodeName
  }
 
 # 3. Ensure an empty DSC folder exists, then create MOF file
-New-Item -Path C:\DSC -ItemType Directory `
-         -ErrorAction SilentlyContinue | Out-Null
+$NIHT =@{
+    Path        = 'C:\DSC '
+    ItemType    = 'Directory'
+    ErrorAction = 'SilentlyContinue'
+New-Item  @NIHT| Out-Null
 Get-ChildItem -Path C:\DSC | Remove-Item -Force | Out-Null
 
 # 4. Clear any existing Configuration documents on SRV2
-Remove-Item '\\SRV2\c$\Windows\System32\configuration\*.mof' `
-            -ErrorAction SilentlyContinue
+$RIHT =@{
+Path         = '\\SRV2\c$\Windows\System32\configuration\*.mof'
+ErrorAction -  'SilentlyContinue'
+}
+Remove-Item @RIHT
 
 # 5. Now provision DNS on SRV2
-ProvisionServices -OutputPath  C:\DSC `
-                  -NodeName    SRV2 `
-                  -FeatureName DNS
+ProvisionServices -OutputPath  C:\DSC -NodeName SRV2 -FeatureName DNS
 
 # 6. View MOF File
 Get-Content -Path C:\DSC\SRV2.mof
