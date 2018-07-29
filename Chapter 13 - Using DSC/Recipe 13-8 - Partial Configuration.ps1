@@ -198,9 +198,16 @@ WindowsFeature TFTPClient
       Ensure   = 'Present'  }
     }
 }
-TFTPConfig -ConfigurationData $ConfigData -OutputPath 'C:\DSCConfiguration\'
- | Out-Null
-Rename-Item  -Path "c:\DSCConfiguration\$Guid.mof" -newname 'TFTPConfig.Mof'
+$TCHT = @{
+ConfigurationData = $ConfigData 
+OutputPath        = 'C:\DSCConfiguration\'  
+}
+TFTPConfig @TCHT |  Out-Null
+$RIHT =  @{
+Path    = "c:\DSCConfiguration\$Guid.mof" 
+NewName = 'TFTPConfig.Mof'
+}
+Rename-Item  @RIHT
 
 # 14. Create Checksums for these two partial configurations
 New-DscChecksum -Path C:\DSCConfiguration
@@ -213,7 +220,11 @@ Update-DscConfiguration -ComputerName SRV2 -Wait -Verbose
 Test-DSCConfiguration -ComputerName SRV2
 
 # 17. Induce configuration drift
-Remove-WindowsFeature -Name tftp-client, telnet-client -ComputerName SRV2
+$RFHT = @{
+Name          = ('tftp-client', 'telnet-client')
+ComputerName  = 'SRV2'
+}
+Remove-WindowsFeature @RFHT
 
 # 18. Test DSC configuration
 Test-DscConfiguration -ComputerName SRV2
