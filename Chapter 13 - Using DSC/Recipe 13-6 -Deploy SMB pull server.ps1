@@ -1,9 +1,8 @@
-﻿#  Recipe 16-6 
-#  Configure and Use SMB Pull Server.
+﻿#  Recipe 13-6 - Implemeinting an SMB pull servrer
 #  
 
-# 0 Get xSMBShare module from PSGallery and install it
-Get-Module xSmbShare -ListAvailable
+# 0 Check that the xSMBShare module is installed
+Install-Module -Name xSmbShare -Force
 
 # 1. Create Local Configuration block
 Configuration PullSrv1
