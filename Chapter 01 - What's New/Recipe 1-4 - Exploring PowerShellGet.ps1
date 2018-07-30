@@ -1,5 +1,5 @@
 ﻿# Recipe 1-4 - Exploring PowerShellGet
-# This recipe looks at what you can get with PowerShell Get
+# This recipe looks at what you can get with the tools in the PowerShellGet module
 
 # 1. Begin by reviewing the commands available in the PowerShellGet module:
 Get-Command -Module PowerShellGet
