@@ -1,4 +1,5 @@
 ﻿# Recipe 11-1 - Secure SMB Server
+# Run on FS1
 
 # Step 1 - Retreive SMB Server settings
 Get-SmbServerConfiguration
