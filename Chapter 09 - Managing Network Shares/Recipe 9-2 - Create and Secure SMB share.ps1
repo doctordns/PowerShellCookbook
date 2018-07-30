@@ -1,6 +1,12 @@
 ﻿# Recipe 11-2 - Create an SMB Share
 # Assumumes two accounts exist: 'IT Team', and 'IT Management' 
+# Also assumes C:\foo folder exists
 # These accounts create earlier!
+# Run from fs1
+
+# 0 Just in case
+$EAHT = @{Erroraction='SilentlyContinue'}
+New-Item -Patch c:\Foo -ItemType Directory @EAHT
 
 # Step 1 - Discover existing shares and access rights
 Get-SmbShare -Name * | 
