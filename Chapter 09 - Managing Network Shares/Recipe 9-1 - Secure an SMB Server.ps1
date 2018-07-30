@@ -4,28 +4,36 @@
 Get-SmbServerConfiguration
 
 # Step 2 - Turn off SMB1 
-Set-SmbServerConfiguration -EnableSMB1Protocol $false `
-                           -Confirm:$false
+
+Set-SmbServerConfiguration -EnableSMB1Protocol $false -Confirm:$false
 
 # Step 3 - Turn on SMB signing and encryption
-Set-SmbServerConfiguration -RequireSecuritySignature $true `
-                           -EnableSecuritySignature $true `
-                           -EncryptData $true `
-                           -Confirm:$false
+$SHT1 = @{
+    RequireSecuritySignature = $true
+    EnableSecuritySignature  = $true
+    EncryptData              = $true
+    Confirm                  = $false
+}
+Set-SmbServerConfiguration @SHT1
 
 # Step 4 - Turn off default server and workstations shares 
-Set-SmbServerConfiguration -AutoShareServer $false `
-                           -AutoShareWorkstation $false `
-                           -Confirm:$false
+$SHT2 = @{
+    AutoShareServer       = $false
+    AutoShareWorkstation  = $false
+    Confirm               = $false
+}
+Set-SmbServerConfiguration @SHT2
 
-# Step 5 - turn off server announcementw
-Set-SmbServerConfiguration -ServerHidden $true `
-                           -AnnounceServer $false `
-                           -Confirm:$false
+# Step 5 - turn off server announcements
+$SHT3 = @{
+    ServerHidden   = $true
+    AnnounceServer = $false
+    Confirm        = $false
+}
+Set-SmbServerConfiguration @SHT3
 
 # Step 6 - restart the service with the new configuration
 Restart-Service lanmanserver
-
 
 
 <# undo and set back to defults
@@ -42,16 +50,3 @@ Set-SmbServerConfiguration -EnableSMB1Protocol $true `
                            -AnnounceServer $True
 Restart-Service lanmanserver
 #>
-
-
-
-
-
-get-smbshare
-
-New-SmbShare -Name foo -Path c:\foo
-
-Get-SmbShareAccess foo
-
-Get-SmbServerConfiguration
-
