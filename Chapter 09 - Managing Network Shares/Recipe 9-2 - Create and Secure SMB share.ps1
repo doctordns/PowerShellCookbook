@@ -1,4 +1,6 @@
-﻿# Recipe 11-2 Create an SMB Share
+﻿# Recipe 11-2 - Create an SMB Share
+# Assumumes two accounts exist: 'IT Team', and 'IT Management' 
+# These accounts create earlier!
 
 # Step 1 - Discover existing shares and access rights
 Get-SmbShare -Name * | 
@@ -9,47 +11,74 @@ Get-SmbShare -Name * |
 New-SmbShare -Name foo -Path C:\foo
 
 # Step 3 - Update the share to have a description
-Set-SmbShare -Name foo -Description 'Foo share for IT' -Confirm:$False
+Set-SmbShare -Name Foo -Description 'Foo share for IT' -Confirm:$False
 
 # Step 4 - Set folder enumeration mode
-Set-SMBShare -Name foo -FolderEnumerationMode AccessBased `
-             -Confirm:$false
+$CHT = @{Confirm = $false}
+Set-SMBShare -Name Foo -FolderEnumerationMode AccessBased @CHT
 
 # Step 5 - Set encryption on for foo share
-Set-SmbShare –Name Foo -EncryptData $true `
-             -Confirm:$false
+Set-SmbShare –Name Foo -EncryptData $true  @CHT
 
 # Step 6 - Set and View share security
-Revoke-SmbShareAccess -Name foo `
-                      -AccountName 'Everyone' `
-                      -Confirm:$false | Out-Null
-Grant-SmbShareAccess  -Name foo `
-                      -AccessRight Read `
-                      -AccountName 'Reskit\ADMINISTRATOR' `
-                      -ConFirm:$false | Out-Null
-Grant-SmbShareAccess  -Name foo `
-                      -AccessRight Full `
-                      -AccountName 'NT Authority\SYSTEM'  `
-                      -Confirm:$False | Out-Null
-Grant-SmbShareAccess  -Name foo `
-                      -AccessRight Full `
-                      -AccountName 'CREATOR OWNER' `
-                      -Confirm:$false | Out-Null
-Grant-SmbShareAccess  -Name foo `
-                      -AccessRight Read `
-                      -AccountName 'IT Team' `
-                      -Confirm:$false | Out-Null
-Grant-SmbShareAccess  -Name foo `
-                      -AccessRight Full `
-                      -AccountName 'IT Management' `
-                      -Confirm:$false | Out-Null
+# remove all access
+$AHT1 = @{
+  Name        =  'foo'
+  AccountName = 'Everyone'
+  Confirm     =  $false
+}
+Revoke-SmbShareAccess @AHT1 | Out-Null
+
+# Add reskit\administrators R/O
+$AHT2 = @{
+    Name         = 'foo'
+    AccessRight  = 'Read'
+    AccountName  = 'Reskit\ADMINISTRATOR'
+    ConFirm      =  $false 
+} 
+Grant-SmbShareAccess @AHT2 | Out-Null
+
+# add system full access
+$AHT3 = {
+    Name          = 'foo'
+    AccessRight   = 'Full'
+    AccountName   = 'NT Authority\SYSTEM'
+    Confirm       = $False 
+}
+Grant-SmbShareAccess  @AHT3 | Out-Null
+
+# Set Creator/Owner to Full access
+$AHT4 = {
+    Name         = 'foo'
+    AccessRight  = 'Full `'
+    AccountName  = 'CREATOR OWNER'
+    Confirm      = $false 
+}
+Grant-SmbShareAccess @AHT4  | Out-Null
+
+# Grant IT Team read access
+$AHT5 = {
+    Name        = 'foo'
+    AccessRight = 'Read'
+    AccountName = 'IT Team'
+    Confirm     = $false 
+}
+Grant-SmbShareAccess @AHT5 | Out-Null
+#                      
+$AHT6 = {
+    Name        = 'foo'
+    AccessRight = 'Full'
+    AccountName = 'IT Management'
+    Confirm     = $false     
+}
+Grant-SmbShareAccess  @AHT6 | Out-Null
 
 # Step 7 - Review share access
 Get-SmbShareAccess -Name foo
 
 
 
-<# reset the shares etc
+<# reset the shares 
 Get-smbshare foo | remove-smbshare -Confirm:$false
 
 #>
