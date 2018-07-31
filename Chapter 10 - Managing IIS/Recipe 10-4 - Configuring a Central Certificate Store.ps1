@@ -130,7 +130,7 @@ $IE.Visible = $true
 
 $sb = {
 Get-SmbShare 'SSLCertShare' | Remove-SmbShare -force
-RI  -Path c:\SSLCerts -Incl *.* -Recurse
+Remove-Item  -Path c:\SSLCerts -Incl *.* -Recurse
 }
 Invoke-Command -ScriptBlock $sb -ComputerName DC1
 
