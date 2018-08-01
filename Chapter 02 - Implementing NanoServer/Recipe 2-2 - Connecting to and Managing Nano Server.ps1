@@ -7,7 +7,6 @@
 #  This method uses the Nano Server 'GUI' 
 #  No PowerShell steps
 
-
 #
 #  METHOD 2 - Using PowerShell Direct
 #
