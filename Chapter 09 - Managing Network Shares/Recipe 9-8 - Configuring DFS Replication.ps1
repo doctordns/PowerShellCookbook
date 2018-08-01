@@ -115,41 +115,63 @@ $DMHT2 = @{
 }
 Set-DfsrMembership @DMHT2 | Out-Null
 
-####
-Set-DfsrMembership -GroupName FSShareRG
--FolderName Sales `
--ComputerName FS1
--ContentPath C:\Sales `
--PrimaryMember $true -Force |
-Out-Null
-Set-DfsrMembership -GroupName FSShareRG
--FolderName Sales `
--ComputerName FS2
--ContentPath c:\Sales `
--Force | Out-Null
-Set-DfsrMembership -GroupName FSShareRG
--FolderName SalesHistorical `
--ComputerName FS1
--ContentPath C:\OldSales `
--PrimaryMember $true -Force |
-Out-Null
-Set-DfsrMembership -GroupName FSShareRG
--FolderName SalesHistorical `
--ComputerName FS2
--ContentPath c:\OldSales `
--Force | Out-Null
+$DMHT2 = @{
+    GroupName     = 'FSShareRG'
+    FolderName    = 'Sales'
+    ComputerName  = 'FS1'
+    ContentPath   = 'C:\Sales'
+    PrimaryMember = $true
+    Force         = $true
+}
+Set-DfsrMembership @DMHT2 | Out-Null
+
+$DMHT3 = @{
+    GroupName     = 'FSShareRG'
+    FolderName    = 'Sales'
+    ComputerName  = 'FS2'
+    ContentPath   = 'C:\Sales'
+    Force         = $true
+}
+Set-DfsrMembership @DMHT3 | Out-Null
+
+$DMHT4 = @{
+    GroupName     = 'FSShareRG'
+    FolderName    = 'SalesHistorical'
+    ComputerName  = 'FS1'
+    ContentPath   = 'C:\OldSales'
+    PrimaryMember = $true
+    Force         = $true
+}
+Set-DfsrMembership @DMHT4 | Out-Null
+
+$DMHT5 = @{
+    GroupName    = 'FSShareRG'
+    FolderName   = 'SalesHistorical'
+    ComputerName = 'FS2'
+    ContentPath  = 'C:\OldSales'
+    Force        = $true
+}
+Set-DfsrMembership @DMHT5 | Out-Null
+
 # 9. Set membership for DCShareRG replication group:
-Set-DfsrMembership -GroupName DCShareRG
--FolderName ITManagement `
--ComputerName DC1
--ContentPath C:\ITM `
--PrimaryMember $true -Force |
-Out-Null
-Set-DfsrMembership -GroupName DCShareRG
--FolderName ITManagement `
--ComputerName DC2
--ContentPath C:\ITM `
--Force | Out-Null
+$DMHT6 = @{
+    GroupName     = 'DCShareRG'
+    FolderName    = 'ITManagement'
+    ComputerName  = 'DC1'
+    ContentPath   = 'C:\ITM'
+    PrimaryMember = $true
+    Force         = $true
+}
+Set-DfsrMembership @DMHT6 |Out-Null
+
+$DMHT7 = @{
+    GroupName     = 'DCShareRG'
+    FolderName    = 'ITManagement'
+    ComputerName  = 'DC2'
+    ContentPath   = 'C:\ITM'
+    Force         = $true
+}
+Set-DfsrMembership @DMHT7 | Out-Null
 
 # 10. View DFSR membership of the two replication groups:
 Get-DfsrMembership -GroupName FSShareRG -ComputerName FS1, FS2 |
@@ -159,17 +181,26 @@ Get-DfsrMembership -GroupName DCShareRG -ComputerName DC1, DC2 |
     Format-Table -Property GroupName, ComputerName,
                            ComputerDomainName, ContentPath, Enabled
 
+####
+
 # 11. Add replication connections for both replication groups:
-Add-DfsrConnection -GroupName FSShareRG `
--SourceComputerName FS1 `
--DestinationComputerName FS2 `
--Description 'FS1-FS2 connection' `
--DomainName Reskit.Org | Out-Null
-Add-DfsrConnection -GroupName DCShareRG `
--SourceComputerName DC1 `
--DestinationComputerName DC2 `
--Description 'DC1-DC2 connection' `
--DomainName Reskit.Org | Out-Null
+$RCHT1 = @{
+  GroupName               = 'FSShareRG'
+  SourceComputerName      = 'FS1'
+  DestinationComputerName = 'FS2'
+  Description             = 'FS1-FS2 connection'
+  DomainName              = 'Reskit.Org'
+}
+Add-DfsrConnection @RCHT1| Out-Null
+
+$RCHT2 = @{
+GroupName DCShareRG `
+SourceComputerName DC1 `
+DestinationComputerName DC2 `
+Description 'DC1-DC2 connection' `
+DomainName Reskit.Org
+}
+Add-DfsrConnection - | Out-Null
 Get-DfsrMember |
     Format-Table -Property Groupname, DomainName,DNSName, Description
 
