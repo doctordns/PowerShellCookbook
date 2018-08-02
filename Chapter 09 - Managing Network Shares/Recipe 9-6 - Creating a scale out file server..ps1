@@ -1,4 +1,4 @@
-﻿# Recipe 11-6 - Make file server fault tolerant
+﻿# Recipe 9.6 - Make file server fault tolerant
 # This recipe is run on FS1, but involves FS2
 # ISCSI initiator is setup on FS1, FS2
 

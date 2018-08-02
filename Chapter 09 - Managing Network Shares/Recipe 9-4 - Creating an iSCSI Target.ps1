@@ -1,4 +1,4 @@
-# Recipe 9-4 - Creating an iSCSI Target
+# Recipe 9.4 - Creating an iSCSI Target
 # Assumes you have the Iscsi Target feature installed, 
 # and the E: drive on SRV1 created.
 #  NB Typo in book talks about I:

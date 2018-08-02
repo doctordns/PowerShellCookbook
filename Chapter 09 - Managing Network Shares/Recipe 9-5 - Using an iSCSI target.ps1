@@ -1,4 +1,4 @@
-﻿# Recipe 9-5 Use ISCSI Target
+﻿# Recipe 9.5 - Using an ISCSI Target
 
 
 # Step 1 - adjust and start the service 

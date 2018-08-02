@@ -1,12 +1,12 @@
-﻿# Recipe 9-7 - COnfiguring a DFS Namespace
+﻿# Recipe 9.7 - Configuring a DFS Namespace
 
 # 1. Install DFS Namespace, DFS Replication, and the related management tools:
 $IHT = @{
     Name                   = 'FS-DFS-Namespace'
     IncludeManagementTools = $True
 }
-Install-WindowsFeature -@IHT -ComputerName Srv1
-Install-WindowsFeature -@IHT -ComputerName Srv2
+Install-WindowsFeature @IHT -ComputerName Srv1
+Install-WindowsFeature @IHT -ComputerName Srv2
 
 # 2. View the DFSN module and the DFSN cmdlets:
 Get-Module -Name DFSN -ListAvailable

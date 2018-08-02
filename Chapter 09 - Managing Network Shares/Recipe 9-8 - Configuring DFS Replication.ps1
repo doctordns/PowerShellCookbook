@@ -1,4 +1,5 @@
-﻿# Recipe 9-8 - Configuring DFS Replication
+﻿# Recipe 9.8 - Configuring DFS Replication
+
 # Uses VMs: DC1, DC2, FS2, FS2,SRV1, SRV2
 
 # 1. Install DFS-Replication feature on key servers:
