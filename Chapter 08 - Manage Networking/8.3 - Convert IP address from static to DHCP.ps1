@@ -1,4 +1,4 @@
-﻿# Recipe 8-3 - Converting IP address from static to DHCP
+﻿# Recipe 8.3 - Converting IP address from static to DHCP
 
 # 1.Get the existing IP address information
 $IPType = 'IPv4'

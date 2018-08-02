@@ -1,5 +1,4 @@
-﻿# Recipe 8-1
-# New ways to do old things
+﻿# Recipe 8.1 - New ways to do old things
 
 # 1. Ipconfig vs new cmdlets
 

@@ -1,4 +1,4 @@
-﻿# Recipe 10-11 - Adding Users to Active Directoryt using a CSV File
+﻿# Recipe 8.11 - Adding Users to Active Directoryt using a CSV File
 
 # 0 Create CSV
 $CSV = = @"
@@ -8,7 +8,8 @@ C, A, Smyth, rmlt, Charlie, 'Team Administrator,christmas
 "@
 $CSV | Out-File -FilePath .\C:\Foo\Users.csv
 
-# 1.  Import a CSV file containing the details of the users you want to add to AD:
+# 1.  Import a CSV file containing the details of the users you 
+#     want to add to AD:
 $Users = Import-CSV -Path C:\Foo\Users.Csv
 
 # 2. Add the users using the CSV

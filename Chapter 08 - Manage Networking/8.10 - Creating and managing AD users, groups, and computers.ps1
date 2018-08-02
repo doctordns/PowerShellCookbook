@@ -1,4 +1,4 @@
-﻿# Recipe 8-10 - Creating and managing AD users, groups, and computers
+﻿# Recipe 8.10 - Creating and managing AD users, groups, and computers
 
 # 1.Create a hash table for general user attributes:
 $Password = 'Pa$$w0rd'

@@ -1,4 +1,4 @@
-﻿# Recipe 8-2 - ConfigureIP addressing
+﻿# Recipe 8.2 - Configuring IP addressing
 
 # 1 Get existing IP address information
 $IPType = "IPv4"

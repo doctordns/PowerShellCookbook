@@ -1,6 +1,7 @@
-﻿# Recipe 10-12 - Reporting on AD Users
+﻿# Recipe 8.12 - Reporting on AD Users
 
-# 1. Define the function
+# 1. Define the function Get-ReskitUser
+#    The function returns objects related to users in reskit.org
 Function Get-ReskitUser {
 # Get PDC Emulator DC
 $PrimaryDC = Get-ADDomainController -Discover -Service PrimaryDC
@@ -25,6 +26,7 @@ Foreach ($ADUser in $ADUsers) {
 
 # 2. Get the users:
 $RKUsers = Get-ReskitUser
+
 # 3. Build the report header:
 $RKReport = ''
 $RkReport += "*** Reskit.Org AD Report`n"

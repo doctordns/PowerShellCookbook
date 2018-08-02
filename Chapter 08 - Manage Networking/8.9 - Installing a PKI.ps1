@@ -1,4 +1,6 @@
-﻿# Recipe 10-9
+﻿# Recipe 8.9 - Installing a PKI
+# runs on two servers, root, and ca.reskit.org
+
 # Install a PKI
 
 # Run this bit on root

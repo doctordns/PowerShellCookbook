@@ -1,4 +1,4 @@
-﻿# Recipe 10-6 - Setup Install and Authorise a DHCP server.
+﻿# Recipe 8.6 - Installing and authorizing a DHCP server.
 # Run on DC1
 
 # 1. Install the DHCP Feature

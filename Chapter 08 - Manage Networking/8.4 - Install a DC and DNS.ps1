@@ -1,4 +1,5 @@
-﻿# Recipe 8-4 Install Domain Controllers.
+﻿# Recipe 8.4 - Installing Domain Controllers
+
 # This recipe requires first DC1 (as a workgroup system),
 # then DC2, a domain joined computer.
 
