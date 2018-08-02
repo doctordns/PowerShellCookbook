@@ -16,7 +16,7 @@ $ADCHT1 = @{
 }
 $RKReport += Get-ADComputer @ADCHT1  |
     Sort-Object -Property lastLogonDate |
-        Format-Table -PropertyName, lastLogonDate |
+        Format-Table -PropertyName lastLogonDate |
             Out-String
 
 # 3. Report on computer accounts that have not logged in the past month:
