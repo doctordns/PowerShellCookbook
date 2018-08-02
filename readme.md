@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This repository contains an updated and revised library of scripts to accompany Thomas Lee's Managing Windows Server 2016 with PowerShell Cookbook.
+This repository contains an updated and revised library of scripts to accompany Thomas Lee's **_Managing Windows Server 2016 with PowerShell Cookbook_**.
 [See Amazon for more details](https://www.amazon.co.uk/Windows-Server-Automation-PowerShell-Cookbook/dp/1787122042/ref=sr_1_cc_2?s=aps&ie=UTF8&qid=1506953050&sr=1-2-catcorr) of the book itself.
 
 The book has 13 chapters and each chapter has a number of recipes.
@@ -39,7 +39,8 @@ Additionally, there is a **Readme.MD** file that describes the recipes in the ch
 ## Note
 
 All recipes are 'as is' - if they work, that is great.
-But if not, oh well.
+But if not, oh well. 
+Please consider filing issues at GitHub if you do find errors or other issues.
 
 Many of these scripts vary from what is published in the book.
 There are a couple of reasons for this.
