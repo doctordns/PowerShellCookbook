@@ -1,6 +1,11 @@
 # This file describes changes of this repository
 
-## Date4 29.7.2018
+## Date 3.8.2018
+
+Finished porting all scripts
+Tidy up script and file namings for consistency
+
+## Date 29.7.2018
 
 Finished porting Chapter 13.
 

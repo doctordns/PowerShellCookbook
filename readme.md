@@ -27,7 +27,7 @@ If you use these scripts, please customise them for our own use.
 - Chapter 6  - Managing Performance
 - Chapter 7  - Troubleshooting Windows
 - Chapter 8  - Managing Windows Networking
-- Chapter 9  - Managing Network Shares  _(in progress)_
+- Chapter 9  - Managing Network Shares
 - Chapter 10 - Managing Internet Information Server
 - Chapter 11 - Managing Hyper-V
 - Chapter 12 - Managing Azure  
@@ -56,8 +56,3 @@ To fit within that limit, I've made liberal use of hash tables and splatting.
 
 Any comments: email Thomas Lee at DoctorDNS@Gmail.Com.
 
-## To Do List
-
-### Conversion and update in progress
-
-Chapter 9  - Managing Network Shares
