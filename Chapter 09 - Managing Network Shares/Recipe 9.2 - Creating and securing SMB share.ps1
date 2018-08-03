@@ -1,4 +1,4 @@
-﻿# Recipe 9.2 - Create an SMB Share
+﻿# Recipe 9.2 - Creating and securing SMB shares
 # Assumumes two accounts exist: 'IT Team', and 'IT Management' 
 # Also assumes C:\foo folder exists
 # These accounts create earlier!

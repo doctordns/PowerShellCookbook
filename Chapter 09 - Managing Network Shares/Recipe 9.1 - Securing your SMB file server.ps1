@@ -1,4 +1,4 @@
-﻿# Recipe 9.1 - Secure SMB Server
+﻿# Recipe 9.1 - Securing your SMB file erver
 # Run on FS1
 
 # Step 1 - Retreive SMB Server settings

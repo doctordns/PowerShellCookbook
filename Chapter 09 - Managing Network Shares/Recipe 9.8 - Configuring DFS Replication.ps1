@@ -195,41 +195,44 @@ $RCHT1 = @{
 Add-DfsrConnection @RCHT1| Out-Null
 
 $RCHT2 = @{
-GroupName DCShareRG `
-SourceComputerName DC1 `
-DestinationComputerName DC2 `
-Description 'DC1-DC2 connection' `
-DomainName Reskit.Org
+    GroupName                   = 'DCShareRG'
+    SourceComputerName          = 'DC1'
+        DestinationComputerName = 'DC2'
+        Description             = 'DC1-DC2 connection'
+        DomainName              = 'Reskit.Org'
 }
-Add-DfsrConnection - | Out-Null
+Add-DfsrConnection @RCHT2 | Out-Null
 Get-DfsrMember |
-    Format-Table -Property Groupname, DomainName,DNSName, Description
+    Format-Table -Property Groupname, DomainName, DNSName, Description
 
 # 12. Update the DFSR configuration:
 Update-DfsrConfigurationFromAD -ComputerName DC1, DC2, FS1, FS2
 
 # 13. Run a DfsrPropogationTest on FSShareRG:
-Start-DfsrPropagationTest -GroupName FSShareRG `
--FolderName ITData `
--ReferenceComputerName FS1 `
--DomainName Reskit.Org
+$PTHT = @{
+    GroupName             = 'FSShareRG'
+    FolderName            = 'ITData'
+    ReferenceComputerName = 'FS1'
+    DomainName            = 'Reskit.Org'
+}
+Start-DfsrPropagationTest @PTHT
+
 # 14. Create and review the output of DfsrPropagationReport:
-Write-DfsrPropagationReport -GroupName FSShareRG `
--FolderName ITdata `
--ReferenceComputerName FS1 `
--DomainName Reskit.Org `
--Path C:\Foo\
+Write-DfsrPropagationReport @PTHT -Path C:\Foo\
 $i = Get-Item -Path C:\Foo\Propagation*.Html |
-Sort-Object -Property LastWriteTime -Descending|
-Select-Object -First 1
+    Sort-Object -Property LastWriteTime -Descending|
+        Select-Object -First 1
 Invoke-Item $i
 
-# 15. Create and review the output of DfsrHealthReport:
-Write-DfsrHealthReport -GroupName FSShareRG `
--ReferenceComputerName FS1 `
--DomainName Reskit.Org `
--Path C:\Foo
+# 15. Create and review the output of DfsrHealthReport
+$HTHT = @{
+    GroupName             = ' FSShareRG'
+    ReferenceComputerName = 'FS1'
+    DomainName            = 'Reskit.Org'
+    Path                  = 'C:\Foo'
+}
+Write-DfsrHealthReport @HTHT
 $i = Get-Item -Path C:\Foo\Health*.Html |
-        Sort-object -property LastWriteTime |
-            Select-Object -Last 1
+    Sort-Object -property LastWriteTime |
+        Select-Object -Last 1
 Invoke-Item $i
