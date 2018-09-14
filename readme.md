@@ -40,15 +40,15 @@ Additionally, there is a **Readme.MD** file that describes the recipes in the ch
 
 All recipes are 'as is' - if they work, that is great.
 But if not, oh well. 
-Please consider filing issues at GitHub if you do find errors or other issues.
+Any damage you do by running these scripts is on you. 
+If you do find issues with any script, please file an issue at GitHub.
 
 Many of these scripts vary from what is published in the book.
 There are a couple of reasons for this.
 In the book, many of the scripts used the back tick character to create multi-line commands.
 Turns out that didn't work very well - they are hard to read.
-And in the process of finalising the book, some changes were made that broke the scripts.
-
-With that in mind, I've tried to fix these where I have found an issue.
+The line width in the book for scripts meant that, in publication, some scripts broke across lines.
+With that in mind, I've tried to fix these where I have found issues.
 Additionally, the scripts have been reformatted to fit inside a 72-character line width.
 To fit within that limit, I've made liberal use of hash tables and splatting.
 
