@@ -54,5 +54,4 @@ To fit within that limit, I've made liberal use of hash tables and splatting.
 
 ## Feedback
 
-Any comments: email Thomas Lee at DoctorDNS@Gmail.Com.
-
+Any comments: email Thomas Lee at DoctorDNS@Gmail.Com
