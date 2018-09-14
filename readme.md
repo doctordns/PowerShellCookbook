@@ -19,7 +19,7 @@ If you use these scripts, please customise them for our own use.
 
 ## Index
 
-- Chapter 1  - What's New in PowerShell and Windows Server 2013
+- Chapter 1  - What's New in PowerShell and Windows Server 20163
 - Chapter 2  - Implementing Nano Server
 - Chapter 3  - Managing Windows Update
 - Chapter 4  - Managing Printers

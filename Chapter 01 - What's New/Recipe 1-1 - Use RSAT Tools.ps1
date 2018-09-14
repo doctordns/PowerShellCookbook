@@ -1,3 +1,5 @@
+# Recipe 1.1 - What's New
+
 # 1. Get the collection of PowerShell commands and the number of cmdlets into
 # PowerShellvariables before installing the RSAT:
 $CountOfCommandsBeforeRSAT = Get-Command |
